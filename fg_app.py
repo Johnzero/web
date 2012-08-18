@@ -33,21 +33,32 @@ admin = Admin(app, name='PaoPao')
 path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
 admin.add_view(FileAdmin(path, '/static/upload/', name='Files'))
 
-class NewsCate(db.Model):
+class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
-    items = db.relationship('News', backref='cate', lazy='dynamic')
-
+    name = db.Column(db.String(50))
+    news_list = db.relationship('News', backref='category', lazy='dynamic')
 
 class News(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	title = db.Column(db.String(80))
-	thumbnail = db.Column(db.String(80))
-	content = db.Column(db.Text())
-	newcate_id = db.Column(db.Integer, db.ForeignKey('newcate.id'))
-    
-	created = db.Column(db.DateTime, default=datetime.datetime.now)
-	updated = db.Column(db.DateTime, onupdate=datetime.datetime.now)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    content = db.Column(db.Text())
+
+
+product2tag = db.Table('product_tag',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('product_id', db.Integer, db.ForeignKey('product.id'))
+)
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tags = db.relationship('Tag', secondary=product2tag,
+        backref=db.backref('products', lazy='dynamic'))
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+
 
 
 #helper
