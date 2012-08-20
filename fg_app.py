@@ -52,6 +52,11 @@ product2tag = db.Table('product_tag',
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    model = db.Column(db.String(50))
+    description = db.Column(db.Text())
+    
+    
     tags = db.relationship('Tag', secondary=product2tag,
         backref=db.backref('products', lazy='dynamic'))
 
