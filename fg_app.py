@@ -29,7 +29,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 db = SQLAlchemy(app)
 
-admin = Admin(app, name='PaoPao')
+admin = Admin(app, name='FG Admin')
 path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
 admin.add_view(FileAdmin(path, '/static/upload/', name='Files'))
 
@@ -64,7 +64,10 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
 
-
+admin.add_view(ModelView(Category, db.session))
+admin.add_view(ModelView(News, db.session))
+admin.add_view(ModelView(Product, db.session))
+admin.add_view(ModelView(Tag, db.session))
 
 #helper
 def allowed_file(filename):
@@ -73,7 +76,23 @@ def allowed_file(filename):
 @app.route('/')
 def index():
 	return render_template('index.html')
-    
+
+
+#------------------------------------------------------------------------------------------------
+
+def create_db():
+    return db.create_all()
+
+def run():
+    app.run(debug=True)
     
 if __name__ == '__main__':
-	app.run(debug=True)
+    if len(sys.argv) == 2:
+        if sys.argv[1] == 'run':
+            run()
+        elif sys.argv[1] == 'create_db':
+            create_db()
+            
+            
+    
+    
