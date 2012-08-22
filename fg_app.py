@@ -28,6 +28,7 @@ try:
 except ImportError:
     from simplejson import dumps
 
+#------------------------------------------------------------------------------------------------------------
 def jsonify(f):
     """返回json"""
     def inner(*args, **kwargs):
@@ -35,7 +36,9 @@ def jsonify(f):
     return inner
 
 
+#------------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
+db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fuguang:fuguang@localhost:5432/fuguang'
 
@@ -49,11 +52,15 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 #thumb
 thumb_size = 250, 200
 
-db = SQLAlchemy(app)
+#admin = Admin(app, name='FG Admin')
+#path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
+#admin.add_view(FileAdmin(path, '/static/upload/', name='Files'))
 
-admin = Admin(app, name='FG Admin')
-path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
-admin.add_view(FileAdmin(path, '/static/upload/', name='Files'))
+#helper
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+#------------------------------------------------------------------------------------------------------------
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -87,6 +94,7 @@ def load_user(userid):
     print userid,'userid'
     return User.query.get(userid)
 
+#------------------------------------------------------------------------------------------------------------
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -119,15 +127,13 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
 
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Category, db.session))
-admin.add_view(ModelView(News, db.session))
-admin.add_view(ModelView(Product, db.session))
-admin.add_view(ModelView(Tag, db.session))
+# admin.add_view(ModelView(User, db.session))
+# admin.add_view(ModelView(Category, db.session))
+# admin.add_view(ModelView(News, db.session))
+# admin.add_view(ModelView(Product, db.session))
+# admin.add_view(ModelView(Tag, db.session))
 
-#helper
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+#------------------------------------------------------------------------------------------------------------
 
 @app.route('/')
 def index():
@@ -159,7 +165,7 @@ def logout():
     flash("Logged out.")
     return redirect(url_for("index"))
 
-#------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------
 
 def create_db():
     return db.create_all()

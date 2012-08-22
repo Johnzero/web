@@ -1,0 +1,21 @@
+
+#header_wrapper {
+	background: #74C0CF;
+	color: white;
+}
+
+#header {
+	background: url(../images/nav-bg.png) no-repeat center top;
+	height: 90px;
+}
+
+.logo {
+	float: left;
+	width: 35px;
+	margin-right: 50px;
+	padding-top: 3px;
+}
+
+#slide{
+	margin-bottom:20px;
+}
