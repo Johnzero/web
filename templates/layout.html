@@ -11,6 +11,7 @@
 		{% endblock %}
 	</head>
 	<body>
+		{{ urlmap }}
 		<div id="header_wrapper">
             <div class="container clearfix"> 
                 <div id="header"> 
@@ -20,14 +21,14 @@
                                 <div class="nav">
 									<a href="#home"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
                                     <ul class="nav">
-                                        <li class="active"><a href="/">首页</a></li>
-                                        <li class="dropdown">
+                                        <li><a href="/">首页</a></li>
+                                        <li class="dropdown active">
                                             <a class="dropdown-toggle current" data-toggle="dropdown" href="#menu1">
                                                 大富光
                                                 <b class="caret"></b>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Action</a></li>
+                                                <li class="active"><a href="#">Action</a></li>
                                                 <li><a href="#">Another action</a></li>
                                                 <li><a href="#">Something else here</a></li>
                                                 <li class="divider"></li>

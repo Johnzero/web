@@ -166,7 +166,14 @@ def logout():
     return redirect(url_for("index"))
 
 #------------------------------------------------------------------------------------------------------------
+@app.context_processor
+def get_urlmap():
+    for url in app.url_map:
+        print url
+    return dict(urlmap=[])
 
+
+#------------------------------------------------------------------------------------------------------------
 def create_db():
     return db.create_all()
 
