@@ -6,7 +6,7 @@ fg_app.py
 Created by Daniel Yang on 2012-08-08.
 Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 """
-#Sqlalchemy, Admin, Cache, Login, WTF, WTForms, Mail, 
+#Sqlalchemy, Admin, Cache, Login, WTF, WTForms, Mail
 
 import sys, os, uuid, simplejson as json
 from datetime import date, datetime
@@ -96,11 +96,8 @@ def jsonify(f):
 def active_processor():
     def page_active(code_list, path):
         base_name = os.path.basename(path)
-        
         return base_name in code_list
-    
     return dict(page_active=page_active)
-
 #------------------------------------------------------------------------------------------------------------
 #模型
 
@@ -138,7 +135,6 @@ class News(db.Model):
     updated = db.Column(db.DateTime(), onupdate=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-
 product2tag = db.Table('product_tag',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     db.Column('product_id', db.Integer, db.ForeignKey('product.id'))
@@ -149,15 +145,12 @@ class Product(db.Model):
     name = db.Column(db.String(50))
     model = db.Column(db.String(50))
     description = db.Column(db.Text())
-    
-    
     tags = db.relationship('Tag', secondary=product2tag,
         backref=db.backref('products', lazy='dynamic'))
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-
 
 class ResellerCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -175,28 +168,37 @@ class Reseller(db.Model):
     address = db.Column(db.String(200))
     geo = db.Column(db.String(50))
     telephone = db.Column(db.String(50))
+    description = db.Column(db.Text())
+
+#------------------------------------------------------------------------------------------------------------
+#Views
+class PageView(views.View):
+    def __init__(self, template_name):
+        self.template_name = template_name
+
+    def dispatch_request(self, code=None):
+        item = Page.query.filter_by(code=code).first_or_404()
+        return render_template(self.template_name, page=item)
+
+class AboutPage(PageView):
+    pass
+
+class BrandPage(PageView):
+    pass
+
+class ServicePage(PageView):
+    def dispatch_request(self):
+        return render_template(self.template_name)
+
+app.add_url_rule('/about/<string:code>', view_func=AboutPage.as_view('about', template_name='about.html'))
+app.add_url_rule('/brand/<string:code>', view_func=BrandPage.as_view('brand', template_name='brand.html'))
+app.add_url_rule('/service', view_func=ServicePage.as_view('service', template_name='service.html'))
 
 #------------------------------------------------------------------------------------------------------------
 #首页
 @app.route('/')
 def index():
-        return render_template('index.html')
-
-#------------------------------------------------------------------------------------------------------------
-#页面
-
-@app.route('/page/<string:code>')
-def page(code):
-    item = Page.query.filter_by(code=code).first_or_404()
-    
-    return render_template("page.html", page=item)
-
-#------------------------------------------------------------------------------------------------------------
-#旗下品牌
-
-@app.route('/brand/<string:name>')
-def brand(name):
-    return render_template("brand/%s.html" % name)
+    return render_template('index.html')
 
 #------------------------------------------------------------------------------------------------------------
 #新闻动态-分页
@@ -221,11 +223,6 @@ def product(page):
 def product_view(product_id):
     pass
 
-@app.route('/product/category', defaults={'page': 1})
-@app.route('/product/category/<int:category_id>/<int:page>')
-def product_category(category_id, page):
-    pass
-
 @app.route('/product/tag', defaults={'page': 1})
 @app.route('/product/tag/<int:tag_id>/<int:page>')
 def product_tag(tag_id, page):
@@ -233,19 +230,10 @@ def product_tag(tag_id, page):
 
 #------------------------------------------------------------------------------------------------------------
 #销售渠道
-
-@app.route('/sales/category', defaults={'page': 1})
-@app.route('/sales/category/<int:category_id>/<int:page>')
-def sales():
-    pass
-
-#------------------------------------------------------------------------------------------------------------
-#客户服务
-
-@app.route('/service')
-def service():
+@app.route('/sales', defaults={'page': 1, 'category_id': 1})
+@app.route('/sales/<int:category_id>/<int:page>')
+def sales(category_id, page):
     return render_template('service.html')
-
 
 #------------------------------------------------------------------------------------------------------------
 # 用户
@@ -339,24 +327,20 @@ if __name__ == '__main__':
         elif sys.argv[1] == 'initdb':
             #init db
             db.session.add(User('admin','admin', 'admin', True))
-            
             db.session.add(Category('新闻'))
             db.session.add(Category('公告'))
             db.session.add(Category('首页大幅'))
-            
             db.session.add(ResellerCategory('直营店'))
             db.session.add(ResellerCategory('批发'))
             db.session.add(ResellerCategory('FGA'))
-            db.session.add(ResellerCategory('网络'))
-            
+            db.session.add(ResellerCategory('网络'))            
             db.session.commit()
-            
-            
+
             db.session.add(Page(1, 'fuguang', '关于富光', '富光', 'fuguang'))
             db.session.add(Page(1, 'history', '富光历史', '富光', 'history'))
             db.session.add(Page(1, 'philosophy', '理念','富光','philosophy'))
             db.session.add(Page(1, 'honor', '荣誉资质', '富光', 'honor'))
-            
+            db.session.add(Page(1, 'service', '客户服务', '富光service', 'service'))
             db.session.commit()
         else:
             print 'unkown command. support sycndb, initdb, dropdb.'

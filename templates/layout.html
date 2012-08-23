@@ -22,48 +22,35 @@
                                     <a href="{{ url_for('index') }}"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
                                     <ul class="nav">
                                         <li {% if 'index' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('index') }}">首页</a></li>
-                                        <li class="dropdown{% if page_active(['fuguang', 'history', 'philosophy', 'honor'], request.path) or 'news' == request.endpoint %} active{% endif %}">
+                                        <li class="dropdown{% if request.endpoint in ['about', 'news'] %} active{% endif %}">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 富光
                                                 <b class="caret"></b>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li{% if 'fuguang' in request.path and 'page' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page', code='fuguang') }}">关于富光</a></li>
-                                                <li{% if 'history' in request.path and 'page' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page', code='history') }}">富光历史</a></li>
-                                                <li{% if 'philosophy' in request.path and 'page' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page', code='philosophy') }}">富光理念</a></li>
-                                                <li{% if 'honor' in request.path and 'page' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page', code='honor') }}">荣誉资质</a></li>
+                                                <li{% if 'fuguang' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='fuguang') }}">关于富光</a></li>
+                                                <li{% if 'history' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='history') }}">富光历史</a></li>
+                                                <li{% if 'philosophy' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='philosophy') }}">富光理念</a></li>
+                                                <li{% if 'honor' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='honor') }}">荣誉资质</a></li>
                                                 <li class="divider"></li>
                                                 <li{% if 'news' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('news') }}">新闻动态</a></li>
                                             </ul>
                                         </li>
                                         
-                                        <li class="dropdown{% if 'brand' in request.endpoint %} active{% endif %}">
+                                        <li class="dropdown{% if 'brand' == request.endpoint %} active{% endif %}">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 旗下品牌
                                                 <b class="caret"></b>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li{% if 'fuguang' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='fuguang') }}">富光</a></li>
-                                                <li{% if 'FGA' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='fga') }}">FGA</a></li>
-                                                <li{% if 'teamaster' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='teamaster') }}">茶马士</a></li>
-                                                <li{% if 'bestjoy' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='bestjoy') }}">拾喜</a></li>
+                                                <li{% if 'fuguang' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fuguang') }}">富光</a></li>
+                                                <li{% if 'FGA' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fga') }}">FGA</a></li>
+                                                <li{% if 'teamaster' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='teamaster') }}">茶马士</a></li>
+                                                <li{% if 'bestjoy' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='bestjoy') }}">拾喜</a></li>
                                             </ul>
                                         </li>
                                         
                                         <li {% if 'product' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('product') }}">产品中心</a> </li>
-                                        
-                                        <li class="dropdown{% if 'brand' in request.endpoint %} active{% endif %}">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                销售网络
-                                                <b class="caret"></b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li{% if 'fuguang' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='fuguang') }}">富光</a></li>
-                                                <li{% if 'FGA' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='fga') }}">FGA</a></li>
-                                                <li{% if 'teamaster' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='teamaster') }}">茶马士</a></li>
-                                                <li{% if 'bestjoy' in request.path and 'brand' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', name='bestjoy') }}">拾喜</a></li>
-                                            </ul>
-                                        </li>
                                         
                                         <li {% if 'sales' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('sales') }}">销售网络</a> </li>
                                         
