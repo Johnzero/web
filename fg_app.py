@@ -105,18 +105,20 @@ class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(50), unique=True)
     title = db.Column(db.String(50))
+    type = db.Column(db.String(50))
     keyword = db.Column(db.Text())
     content = db.Column(db.Text())
     created = db.Column(db.DateTime(), default=datetime.now)
     updated = db.Column(db.DateTime(), onupdate=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
-    def __init__(self, user_id, code, title, keyword, content):
+    def __init__(self, user_id, code, title, type, keyword, content):
         self.code = code
         self.user_id = user_id
         self.content = content
         self.title = title
         self.keyword = keyword
+        self.type = type
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -173,26 +175,20 @@ class Reseller(db.Model):
 #------------------------------------------------------------------------------------------------------------
 #Views
 class PageView(views.View):
-    def __init__(self, template_name):
+    def __init__(self, template_name, type):
         self.template_name = template_name
+        self.type = type
 
     def dispatch_request(self, code=None):
-        item = Page.query.filter_by(code=code).first_or_404()
+        if code:
+            item = Page.query.filter_by(code=code, type=self.type).first_or_404()
+        else:
+            item = Page.query.filter_by(type=self.type).first_or_404()
         return render_template(self.template_name, page=item)
 
-class AboutPage(PageView):
-    pass
-
-class BrandPage(PageView):
-    pass
-
-class ServicePage(PageView):
-    def dispatch_request(self):
-        return render_template(self.template_name)
-
-app.add_url_rule('/about/<string:code>', view_func=AboutPage.as_view('about', template_name='about.html'))
-app.add_url_rule('/brand/<string:code>', view_func=BrandPage.as_view('brand', template_name='brand.html'))
-app.add_url_rule('/service', view_func=ServicePage.as_view('service', template_name='service.html'))
+app.add_url_rule('/about/<string:code>', view_func=PageView.as_view('about', template_name='about.html', type='about'))
+app.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', template_name='brand.html', type='brand'))
+app.add_url_rule('/service', view_func=PageView.as_view('service', template_name='service.html', type='service'))
 
 #------------------------------------------------------------------------------------------------------------
 #首页
@@ -217,7 +213,7 @@ def news_view(news_id):
 @app.route('/product', defaults={'page': 1})
 @app.route('/product/p/<int:page>')
 def product(page):
-    pass
+    return render_template('products.html')
 
 @app.route('/product/view/<int:product_id>')
 def product_view(product_id):
@@ -335,12 +331,16 @@ if __name__ == '__main__':
             db.session.add(ResellerCategory('FGA'))
             db.session.add(ResellerCategory('网络'))            
             db.session.commit()
-
-            db.session.add(Page(1, 'fuguang', '关于富光', '富光', 'fuguang'))
-            db.session.add(Page(1, 'history', '富光历史', '富光', 'history'))
-            db.session.add(Page(1, 'philosophy', '理念','富光','philosophy'))
-            db.session.add(Page(1, 'honor', '荣誉资质', '富光', 'honor'))
-            db.session.add(Page(1, 'service', '客户服务', '富光service', 'service'))
+            #user_id, code, title, type, keyword, content
+            db.session.add(Page(1, 'fuguang', '关于富光', 'about', '富光', 'fuguang'))
+            db.session.add(Page(1, 'history', '富光历史', 'about', '富光', 'history'))
+            db.session.add(Page(1, 'philosophy', '理念', 'about', '富光','philosophy'))
+            db.session.add(Page(1, 'honor', '荣誉资质', 'about', '富光', 'honor'))
+            db.session.add(Page(1, 'service', '客户服务', 'service', '富光service', 'service'))
+            db.session.add(Page(1, 'fg', '富光', 'brand', '富光', 'brand'))
+            db.session.add(Page(1, 'fga', 'FGA', 'brand', '富光,FGA', 'brand'))
+            db.session.add(Page(1, 'bestjoy', '拾喜', 'brand', '富光,拾喜', 'brand'))
+            db.session.add(Page(1, 'teamaster', '茶马士', 'brand', '茶马士', 'brand'))
             db.session.commit()
         else:
             print 'unkown command. support sycndb, initdb, dropdb.'

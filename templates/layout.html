@@ -43,7 +43,7 @@
                                                 <b class="caret"></b>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li{% if 'fuguang' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fuguang') }}">富光</a></li>
+                                                <li{% if 'fuguang' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fg') }}">富光</a></li>
                                                 <li{% if 'FGA' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fga') }}">FGA</a></li>
                                                 <li{% if 'teamaster' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='teamaster') }}">茶马士</a></li>
                                                 <li{% if 'bestjoy' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='bestjoy') }}">拾喜</a></li>
@@ -62,15 +62,21 @@
                         </div>
                     </div>
                 </div>
-				<div id="slide">
-					<a href="/"><img src="http://placehold.it/930x180" alt="" class="img-polaroid"></a>
-				</div>
+				{% block slide %}{% endblock %}
             </div>
         </div>
 		{% block body %}
 		
 		{% endblock %}
 		
-		
+		<div id="footer">
+            <div class="inner"> 
+                <div class="container"> 
+					<hr/>
+					<p>Copyright 2012 Zbox Website Template. All Rights Reserved.</p>
+                    <p>
+                    </p>
+                </div></div>
+        </div>
 	</body>
 </html>
