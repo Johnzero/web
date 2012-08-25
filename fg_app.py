@@ -17,6 +17,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
                             confirm_login, fresh_login_required)
+from flask.ext.wtf import *
 
 from PIL import Image
 
@@ -28,10 +29,7 @@ except ImportError:
 #------------------------------------------------------------------------------------------------------------
 #配置定义
 app = Flask(__name__)
-
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fuguang:fuguang@localhost:5432/fuguang'
-
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static', 'upload')
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 app.config['SECRET_KEY'] = 'zuSAyu3XRqGRvAg0HxsKX12Nrvf6Hk3AgZCWg1S1j9Y='
@@ -191,6 +189,11 @@ app.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', tem
 app.add_url_rule('/service', view_func=PageView.as_view('service', template_name='service.html', type='service'))
 
 #------------------------------------------------------------------------------------------------------------
+#表单
+class PageForm(Form):
+    pass
+
+#------------------------------------------------------------------------------------------------------------
 #首页
 @app.route('/')
 def index():
@@ -315,34 +318,8 @@ def run():
     app.run(debug=True)
     
 if __name__ == '__main__':
+    import fixture
     if len(sys.argv) == 2:
-        if sys.argv[1] == 'syncdb':
-            db.create_all()
-        elif sys.argv[1] == 'dropdb':
-            db.drop_all() 
-        elif sys.argv[1] == 'initdb':
-            #init db
-            db.session.add(User('admin','admin', 'admin', True))
-            db.session.add(Category('新闻'))
-            db.session.add(Category('公告'))
-            db.session.add(Category('首页大幅'))
-            db.session.add(ResellerCategory('直营店'))
-            db.session.add(ResellerCategory('批发'))
-            db.session.add(ResellerCategory('FGA'))
-            db.session.add(ResellerCategory('网络'))            
-            db.session.commit()
-            #user_id, code, title, type, keyword, content
-            db.session.add(Page(1, 'fuguang', '关于富光', 'about', '富光', 'fuguang'))
-            db.session.add(Page(1, 'history', '富光历史', 'about', '富光', 'history'))
-            db.session.add(Page(1, 'philosophy', '理念', 'about', '富光','philosophy'))
-            db.session.add(Page(1, 'honor', '荣誉资质', 'about', '富光', 'honor'))
-            db.session.add(Page(1, 'service', '客户服务', 'service', '富光service', 'service'))
-            db.session.add(Page(1, 'fg', '富光', 'brand', '富光', 'brand'))
-            db.session.add(Page(1, 'fga', 'FGA', 'brand', '富光,FGA', 'brand'))
-            db.session.add(Page(1, 'bestjoy', '拾喜', 'brand', '富光,拾喜', 'brand'))
-            db.session.add(Page(1, 'teamaster', '茶马士', 'brand', '茶马士', 'brand'))
-            db.session.commit()
-        else:
-            print 'unkown command. support sycndb, initdb, dropdb.'
+        fixture.process(sys.argv[1], db, Category, ResellerCategory, User, Page)
     else:
         run()

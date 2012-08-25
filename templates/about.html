@@ -3,5 +3,23 @@
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block body %}
-
+    
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                {% autoescape false %}
+                {{ page.content }}
+                {% endautoescape %}
+            </div>
+            <div class="span4">
+                <ul class="nav nav-list">
+                    <li class="nav-header">关于富光</li>
+                    <li class="active"><a href="#">关于富光</a></li>
+                    <li><a href="#">富光历史</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">编辑本页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock body %}
