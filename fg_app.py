@@ -17,7 +17,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
                             confirm_login, fresh_login_required)
-from flask.ext.wtf import *
+from flask.ext.wtf import Form, TextField, TextAreaField, SubmitField, Required, SelectField
 
 from PIL import Image
 
@@ -189,9 +189,14 @@ app.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', tem
 app.add_url_rule('/service', view_func=PageView.as_view('service', template_name='service.html', type='service'))
 
 #------------------------------------------------------------------------------------------------------------
-#表单
+#表单 
 class PageForm(Form):
-    pass
+    code = TextField('简写', validators=[Required()])
+    title = TextField('标题', validators=[Required()])
+    type = SelectField('类型', choices=[('aim', 'AIM'), ('msn', 'MSN')], validators=[Required()])
+    keyword = TextAreaField('关键字')
+    content = TextAreaField('内容')
+    submit = SubmitField('保存')
 
 #------------------------------------------------------------------------------------------------------------
 #首页
@@ -199,6 +204,20 @@ class PageForm(Form):
 def index():
     return render_template('index.html')
 
+#------------------------------------------------------------------------------------------------------------
+#页面
+@app.route('/page/edit/<int:page_id>', methods=['GET','POST'])
+def page_save(page_id):
+    item = Page.query.filter_by(id=page_id).first_or_404()
+    
+    form = PageForm(request.form, obj=item)
+    if form.validate_on_submit():
+        form.populate_obj(item)
+        db.session.commit()
+        flash('成功')
+    
+    return render_template('edit.html', item=item, form=form)
+    
 #------------------------------------------------------------------------------------------------------------
 #新闻动态-分页
 @app.route('/news', defaults={'page': 1})
@@ -322,4 +341,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         fixture.process(sys.argv[1], db, Category, ResellerCategory, User, Page)
     else:
+        if sys.getdefaultencoding() != 'utf-8':
+        	reload(sys)
+        	sys.setdefaultencoding('utf-8')
         run()

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+
+{% block title %}编辑页面: {{ item.title }}{% endblock %}
+{% block body %}
+	<div class="container">
+		<form method="POST" action="">
+			<legend>编辑</legend>
+			{{ form.hidden_tag() }}
+			
+			{{ form.code.label }}
+			{{ form.code() }}
+			{{ form.title.label }}
+			{{ form.title }}
+			{{ form.type.label }}
+			{{ form.type }}
+			{{ form.keyword.label }}
+			{{ form.keyword }}
+			{{ form.content.label }}
+			{{ form.content }}
+			{{ form.submit(class_='btn') }}
+		</form>
+	</div>
+{% endblock body %}

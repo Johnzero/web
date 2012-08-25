@@ -62,6 +62,16 @@
                         </div>
                     </div>
                 </div>
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				{% for message in messages %}
+				<div class="alert">
+				  <button type="button" class="close" data-dismiss="alert">×</button>
+				  {{ message }}
+				</div>
+				{% endfor %}
+				{% endif %}
+				{% endwith %}
 				{% block slide %}{% endblock %}
             </div>
         </div>
