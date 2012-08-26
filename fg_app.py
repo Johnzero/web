@@ -11,7 +11,7 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 import sys, os, uuid, simplejson as json
 from datetime import date, datetime
 
-from flask import Flask, session, request, render_template, redirect, url_for, flash, send_from_directory, views
+from flask import Flask, session, request, render_template, redirect, url_for, flash, send_from_directory, views, Response
 from flask.ext.sqlalchemy import SQLAlchemy
 
 from flask.ext.login import (LoginManager, current_user, login_required,
@@ -182,7 +182,7 @@ class PageView(views.View):
             item = Page.query.filter_by(code=code, type=self.type).first_or_404()
         else:
             item = Page.query.filter_by(type=self.type).first_or_404()
-        return render_template(self.template_name, page=item)
+        return render_template(self.template_name, page=item, object=Page)
 
 app.add_url_rule('/about/<string:code>', view_func=PageView.as_view('about', template_name='about.html', type='about'))
 app.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', template_name='brand.html', type='brand'))
@@ -193,7 +193,7 @@ app.add_url_rule('/service', view_func=PageView.as_view('service', template_name
 class PageForm(Form):
     code = TextField('简写', validators=[Required()])
     title = TextField('标题', validators=[Required()])
-    type = SelectField('类型', choices=[('aim', 'AIM'), ('msn', 'MSN')], validators=[Required()])
+    type = SelectField('类型', choices=[('about', '关于'), ('brand', '品牌'), ('service', '服务')], validators=[Required()])
     keyword = TextAreaField('关键字')
     content = TextAreaField('内容')
     submit = SubmitField('保存')
@@ -207,15 +207,15 @@ def index():
 #------------------------------------------------------------------------------------------------------------
 #页面
 @app.route('/page/edit/<int:page_id>', methods=['GET','POST'])
-def page_save(page_id):
+def page_edit(page_id):
     item = Page.query.filter_by(id=page_id).first_or_404()
     
     form = PageForm(request.form, obj=item)
     if form.validate_on_submit():
         form.populate_obj(item)
         db.session.commit()
-        flash('成功')
-    
+        flash('修改成功!')
+        return redirect(url_for('about', code=item.code))
     return render_template('edit.html', item=item, form=form)
     
 #------------------------------------------------------------------------------------------------------------
