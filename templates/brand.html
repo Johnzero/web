@@ -3,5 +3,24 @@
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="span8">
+            {% autoescape false %}
+            {{ page.content }}
+            {% endautoescape %}
+        </div>
 
+        <div class="span4">
+            <ul class="nav nav-list">
+                <li class="nav-header">品牌</li>
+				{% for page in object.query.filter_by(type='brand') %}
+				<li><a href="{{ url_for('brand', code=page.code) }}">{{ page.title }}</a></li>
+				{% endfor %}
+                <li class="divider"></li>
+                <li><a href="{{ url_for('page_edit', page_id=page.id) }}">编辑本页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock body %}

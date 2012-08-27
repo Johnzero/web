@@ -13,18 +13,12 @@ from datetime import date, datetime
 
 from flask import Flask, session, request, render_template, redirect, url_for, flash, send_from_directory, views, Response
 from flask.ext.sqlalchemy import SQLAlchemy
-
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
                             confirm_login, fresh_login_required)
 from flask.ext.wtf import Form, TextField, TextAreaField, SubmitField, Required, SelectField
-
 from PIL import Image
-
-try:
-    from json import dumps
-except ImportError:
-    from simplejson import dumps
+from simplejson import dumps
 
 #------------------------------------------------------------------------------------------------------------
 #配置定义
