@@ -146,18 +146,11 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
 
-class ResellerCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    reseller_list = db.relationship('Reseller', backref='category', lazy='dynamic')
-    
-    def __init__(self, name):
-        self.name = name
 
 class Reseller(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    category_id = db.Column(db.Integer, db.ForeignKey('reseller_category.id'))
+    db.Column(db.String(50))
     province = db.Column(db.String(50))
     address = db.Column(db.String(200))
     geo = db.Column(db.String(50))
