@@ -17,6 +17,9 @@ from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
                             confirm_login, fresh_login_required)
 from flask.ext.wtf import Form, TextField, TextAreaField, SubmitField, Required, SelectField
+from flask.ext.admin import Admin, AdminIndexView
+from flask.ext.admin.contrib.fileadmin import FileAdmin
+from flask.ext.admin.contrib.sqlamodel import ModelView
 from PIL import Image
 from simplejson import dumps
 
@@ -27,12 +30,23 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fuguang:fuguang@localhost:
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static', 'upload')
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 app.config['SECRET_KEY'] = 'zuSAyu3XRqGRvAg0HxsKX12Nrvf6Hk3AgZCWg1S1j9Y='
-
 #upload file extensions
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 #thumb
 thumb_size = 250, 200
 
+#------------------------------------------------------------------------------------------------------------
+class FGModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated()
+
+class FGAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated()
+
+admin = Admin(app, name=u'富光网站后台',index_view=FGAdminIndexView())
+path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
+admin.add_view(FileAdmin(path, '/static/upload/', name='Files'))
 #------------------------------------------------------------------------------------------------------------
 #用户认证
 db = SQLAlchemy(app)
@@ -52,6 +66,11 @@ class User(db.Model, UserMixin):
 
     def is_active(self):
         return self.active
+    
+    def __unicode__(self):
+        return self.name    
+    
+admin.add_view(FGModelView(User, db.session))
 
 class Anonymous(AnonymousUser):
     name = u"Anonymous"
@@ -66,7 +85,6 @@ login_manager.setup_app(app)
 
 @login_manager.user_loader
 def load_user(userid):
-    print userid,'userid'
     return User.query.get(userid)
 
 #------------------------------------------------------------------------------------------------------------
@@ -104,6 +122,9 @@ class Page(db.Model):
     updated = db.Column(db.DateTime(), onupdate=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
+    def __unicode__(self):
+        return self.title
+        
     def __init__(self, user_id, code, title, type, keyword, content):
         self.code = code
         self.user_id = user_id
@@ -111,23 +132,33 @@ class Page(db.Model):
         self.title = title
         self.keyword = keyword
         self.type = type
+admin.add_view(FGModelView(Page, db.session))
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     news_list = db.relationship('News', backref='category', order_by='desc(News.created)', lazy='dynamic')
     
+    def __unicode__(self):
+        return self.name
+    
     def __init__(self, name):
         self.name = name
 
 class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    title = db.Column(db.String(50))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     content = db.Column(db.Text())
     created = db.Column(db.DateTime(), default=datetime.now)
     updated = db.Column(db.DateTime(), onupdate=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    
+    def __unicode__(self):
+        return self.title
+    
+admin.add_view(FGModelView(News, db.session))
+admin.add_view(FGModelView(Category, db.session))
 
 product2tag = db.Table('product_tag',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
@@ -141,21 +172,46 @@ class Product(db.Model):
     description = db.Column(db.Text())
     tags = db.relationship('Tag', secondary=product2tag,
         backref=db.backref('products', lazy='dynamic'))
+    
+    def __unicode__(self):
+        return self.name
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    
+    def __unicode__(self):
+        return self.name
+        
+admin.add_view(FGModelView(Tag, db.session))
+admin.add_view(FGModelView(Product, db.session))
 
+class ResellerCategory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    reseller_list = db.relationship('Reseller', backref='category', lazy='dynamic')
+    
+    def __init__(self, name):
+        self.name = name
+    
+    def __unicode__(self):
+        return self.name
 
 class Reseller(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    db.Column(db.String(50))
+    category_id = db.Column(db.Integer, db.ForeignKey('reseller_category.id'))
     province = db.Column(db.String(50))
     address = db.Column(db.String(200))
     geo = db.Column(db.String(50))
     telephone = db.Column(db.String(50))
     description = db.Column(db.Text())
+    
+    def __unicode__(self):
+        return self.name
+    
+admin.add_view(FGModelView(Reseller, db.session))
+admin.add_view(FGModelView(ResellerCategory, db.session))
 
 #------------------------------------------------------------------------------------------------------------
 #Views
@@ -176,35 +232,11 @@ app.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', tem
 app.add_url_rule('/service', view_func=PageView.as_view('service', template_name='service.html', type='service'))
 
 #------------------------------------------------------------------------------------------------------------
-#表单 
-class PageForm(Form):
-    code = TextField('简写', validators=[Required()])
-    title = TextField('标题', validators=[Required()])
-    type = SelectField('类型', choices=[('about', '关于'), ('brand', '品牌'), ('service', '服务')], validators=[Required()])
-    keyword = TextAreaField('关键字')
-    content = TextAreaField('内容')
-    submit = SubmitField('保存')
-
-#------------------------------------------------------------------------------------------------------------
 #首页
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#------------------------------------------------------------------------------------------------------------
-#页面
-@app.route('/page/edit/<int:page_id>', methods=['GET','POST'])
-def page_edit(page_id):
-    item = Page.query.filter_by(id=page_id).first_or_404()
-    
-    form = PageForm(request.form, obj=item)
-    if form.validate_on_submit():
-        form.populate_obj(item)
-        db.session.commit()
-        flash('修改成功!')
-        return redirect(url_for('about', code=item.code))
-    return render_template('edit.html', item=item, form=form)
-    
 #------------------------------------------------------------------------------------------------------------
 #新闻动态-分页
 @app.route('/news', defaults={'page': 1})
@@ -314,7 +346,6 @@ def upload():
                         'image': url_prefix + f,
                         'folder': url_prefix,
                     })
-
         return file_list
 
 #------------------------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ def process(command, db, Category, ResellerCategory, User, Page):
     if command == 'syncdb':
         sync_db(db)
     elif command == 'dropdb':
-        drop_db(dv)
+        drop_db(db)
     elif command == 'initdb':
         init_db(db, Category, ResellerCategory, User, Page)
     elif command == 'resetdb':
@@ -33,7 +33,8 @@ def init_db(db, Category, ResellerCategory, User, Page):
     db.session.add(ResellerCategory('直营店'))
     db.session.add(ResellerCategory('批发'))
     db.session.add(ResellerCategory('FGA'))
-    db.session.add(ResellerCategory('网络'))            
+    db.session.add(ResellerCategory('网络'))
+    
     db.session.commit()
     #user_id, code, title, type, keyword, content
     db.session.add(Page(1, 'fuguang', '关于富光', 'about', '富光', 'fuguang'))
