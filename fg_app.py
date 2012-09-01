@@ -203,6 +203,7 @@ class Reseller(db.Model):
     geo = db.Column(db.String(50))
     telephone = db.Column(db.String(50))
     description = db.Column(db.Text())
+    recomm = db.Column(db.Boolean(), default=False)
     
     def __unicode__(self):
         return self.name

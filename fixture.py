@@ -27,9 +27,10 @@ def drop_db(db):
 
 def init_db(db, Category, ResellerCategory, User, Page):
     db.session.add(User('admin','admin', 'admin', True))
-    db.session.add(Category('新闻'))
+    db.session.add(Category('新闻动态'))
     db.session.add(Category('公告'))
-    db.session.add(Category('首页大幅'))
+    db.session.add(Category('首页大图'))
+    db.session.add(Category('对话设计师'))
     db.session.add(ResellerCategory('直营店'))
     db.session.add(ResellerCategory('批发'))
     db.session.add(ResellerCategory('FGA'))
