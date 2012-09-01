@@ -18,8 +18,6 @@
 					{% for page in object.query.filter_by(type='about') %}
 					<li><a href="{{ url_for('about', code=page.code) }}">{{ page.title }}</a></li>
 					{% endfor %}
-                    <li class="divider"></li>
-                    <li><a href="{{ url_for('page_edit', page_id=page.id) }}">编辑本页</a></li>
                 </ul>
             </div>
         </div>
