@@ -44,9 +44,8 @@ class FGAdminIndexView(AdminIndexView):
     def is_accessible(self):
         return current_user.is_authenticated()
 
-admin = Admin(app, name=u'富光网站后台',index_view=FGAdminIndexView())
+admin = Admin(app, name=u'富光网站后台',index_view=FGAdminIndexView(name='首页'))
 path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
-admin.add_view(FileAdmin(path, '/static/upload/', name='Files'))
 #------------------------------------------------------------------------------------------------------------
 #用户认证
 db = SQLAlchemy(app)
@@ -69,8 +68,6 @@ class User(db.Model, UserMixin):
     
     def __unicode__(self):
         return self.name    
-    
-admin.add_view(FGModelView(User, db.session))
 
 class Anonymous(AnonymousUser):
     name = u"Anonymous"
@@ -132,7 +129,7 @@ class Page(db.Model):
         self.title = title
         self.keyword = keyword
         self.type = type
-admin.add_view(FGModelView(Page, db.session))
+admin.add_view(FGModelView(Page, db.session, name='页面'))
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -157,8 +154,8 @@ class News(db.Model):
     def __unicode__(self):
         return self.title
     
-admin.add_view(FGModelView(News, db.session))
-admin.add_view(FGModelView(Category, db.session))
+admin.add_view(FGModelView(News, db.session, name='新闻', category='新闻'))
+admin.add_view(FGModelView(Category, db.session, name='新闻分类', category='新闻'))
 
 product2tag = db.Table('product_tag',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
@@ -183,8 +180,8 @@ class Tag(db.Model):
     def __unicode__(self):
         return self.name
         
-admin.add_view(FGModelView(Tag, db.session))
-admin.add_view(FGModelView(Product, db.session))
+admin.add_view(FGModelView(Tag, db.session, name='产品标签', category='产品'))
+admin.add_view(FGModelView(Product, db.session, name='产品', category='产品'))
 
 class ResellerCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -210,9 +207,11 @@ class Reseller(db.Model):
     def __unicode__(self):
         return self.name
     
-admin.add_view(FGModelView(Reseller, db.session))
-admin.add_view(FGModelView(ResellerCategory, db.session))
+admin.add_view(FGModelView(Reseller, db.session, name='经销商', category='经销商'))
+admin.add_view(FGModelView(ResellerCategory, db.session, name='经销商分类', category='经销商'))
 
+admin.add_view(FileAdmin(path, '/static/upload/', name='文件'))
+admin.add_view(FGModelView(User, db.session, name='用户'))
 #------------------------------------------------------------------------------------------------------------
 #Views
 class PageView(views.View):
