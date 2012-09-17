@@ -1,94 +1,143 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8"/>
-		{% block head %}
-		<title>{% block title %}{% endblock %} - 富光实业</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" type="text/css" media="screen" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" media="screen" />
-		<script src="{{ url_for('static', filename='js/jquery-1.8.0.min.js') }}" type="text/javascript"></script>
-		<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-		{% endblock %}
-		{% block extra_head %}
-		{% endblock %}
-	</head>
-	<body>
-	    
-            <div id="header_wrapper">
-            <div class="container clearfix">
-                <div id="header">
-                    <div class="navbar navbar-inverse">
-                        <div class="navbar-inner">
-                            <div class="container">
-                                <div class="nav">
-                                    <a href="{{ url_for('index') }}"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
-                                    <ul class="nav">
-                                        <li {% if 'index' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('index') }}">首页</a></li>
-                                        <li class="dropdown{% if request.endpoint in ['about', 'news'] %} active{% endif %}">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                富光
-                                                <b class="caret"></b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li{% if 'fuguang' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='fuguang') }}">关于富光</a></li>
-                                                <li{% if 'history' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='history') }}">富光历史</a></li>
-                                                <li{% if 'philosophy' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='philosophy') }}">富光理念</a></li>
-                                                <li{% if 'honor' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='honor') }}">荣誉资质</a></li>
-                                                <li class="divider"></li>
-                                                <li{% if 'news' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('news') }}">新闻动态</a></li>
-                                            </ul>
-                                        </li>
-                                        
-                                        <li class="dropdown{% if 'brand' == request.endpoint %} active{% endif %}">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                旗下品牌
-                                                <b class="caret"></b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li{% if 'fuguang' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fg') }}">富光</a></li>
-                                                <li{% if 'FGA' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fga') }}">FGA</a></li>
-                                                <li{% if 'teamaster' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='teamaster') }}">茶马士</a></li>
-                                                <li{% if 'bestjoy' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='bestjoy') }}">拾喜</a></li>
-                                            </ul>
-                                        </li>
-                                        
-                                        <li {% if 'product' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('product') }}">产品中心</a> </li>
-                                        
-                                        <li {% if 'sales' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('sales') }}">销售网络</a> </li>
-                                        
-                                        <li {% if 'service' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('service') }}">客户服务</a> </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock %} - 安徽富光实业股份有限公司</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="{% block description %}{% endblock %}"/>
+    <meta name="author" content="{% block author %}{% endblock %}"/>
+    <meta name="keyword" content="{% block keyword %}{% endblock %}"/>
+    <!-- Le styles -->
+    <link href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    {% block extra_head %}
+    {% endblock %}
+    <!-- Le fav and touch icons -->
+    <!--<link rel="shortcut icon" href="static/ico/favicon.ico">-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <form class="navbar-search">
+                        <input type="text" class="search-query" placeholder="搜索富光产品、新闻...">
+                        <div class="icon-search"></div>
+                    </form>
                 </div>
-				{% with messages = get_flashed_messages() %}
-				{% if messages %}
-				{% for message in messages %}
-				<div class="alert">
-				  <button type="button" class="close" data-dismiss="alert">×</button>
-				  {{ message }}
-				</div>
-				{% endfor %}
-				{% endif %}
-				{% endwith %}
-				{% block slide %}{% endblock %}
+                <div class="span5" id="user-area">
+                        <a href="" class="yahei">注册</a> | <a href="" class="yahei">登录</a>
+                    </div>
+                <div class="span4 header-400">
+                    <img src="{{ url_for('static', filename='images/400.png') }}" class="pull-right" />
+                </div>
             </div>
         </div>
-		{% block body %}
-		
-		{% endblock %}
-		
-		<div id="footer">
-            <div class="inner"> 
-                <div class="container"> 
-					<hr/>
-					<p>Copyright 2012 Zbox Website Template. All Rights Reserved.</p>
-                    <p>
-                    </p>
-                </div></div>
+      </div>
+    </div>
+
+    <div class="fg-menu">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-big.png') }}"/></a>
+                </div>
+                <div class="span9">
+                    <ul class="nav nav-pills main-menu">
+                        <li {% if 'index' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('index') }}">首页</a></li>
+                        <li class="dropdown{% if request.endpoint in ['about', 'news'] %} active{% endif %}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                富光
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li{% if 'fuguang' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='fuguang') }}">关于富光</a></li>
+                                <li{% if 'history' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='history') }}">富光历史</a></li>
+                                <li{% if 'philosophy' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='philosophy') }}">富光理念</a></li>
+                                <li{% if 'honor' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='honor') }}">荣誉资质</a></li>
+                                <li class="divider"></li>
+                                <li{% if 'news' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('news') }}">新闻动态</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown{% if 'brand' == request.endpoint %} active{% endif %}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                旗下品牌
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li{% if 'fuguang' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fg') }}">富光</a></li>
+                                <li{% if 'FGA' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='fga') }}">FGA</a></li>
+                                <li{% if 'teamaster' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='teamaster') }}">茶马士</a></li>
+                                <li{% if 'bestjoy' in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('brand', code='bestjoy') }}">拾喜</a></li>
+                            </ul>
+                        </li>
+                        <li {% if 'product' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('product') }}">产品中心</a> </li>
+                        <li {% if 'sales' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('sales') }}">销售网络</a> </li>
+                        <li {% if 'service' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('service') }}">客户服务</a> </li>
+                      </ul>
+                </div>
+            </div>
         </div>
-	</body>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+    {% block body %}
+    {% endblock %}
+
+    <div class="footer">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span4">
+                    <img src="{{ url_for('static', filename='images/slogan.png') }}"/>
+                </div>
+                <div class="span8">
+                    <a href="/" class="yahei">首页</a>
+                    <a href="" class="yahei">关于富光</a>
+                    <a href="" class="yahei">品牌</a>
+                    <a href="" class="yahei">产品中心</a>
+                    <a href="" class="yahei">销售网络</a>
+                    <a href="" class="yahei">客服服务</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <div class="container">
+            <img src="{{ url_for('static', filename='images/copyright.gif') }}"/>
+        </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='lib/jquery-1.8.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jquery.placeholder.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/cufon/cufon-yui.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/cufon/700.font.js') }}"></script>
+    <script type="text/javascript">
+        Cufon.replace('.main-menu li a,.yahei');
+    </script>
+    {% block extra_js %}
+    {% endblock %}
+    
+  </body>
 </html>

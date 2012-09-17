@@ -349,12 +349,12 @@ def upload():
         return file_list
 
 #------------------------------------------------------------------------------------------------------------
-
-def run():
-    app.config.from_object(__name__)
-    app.run(debug=True)
     
 if __name__ == '__main__':
+    def run():
+        app.config.from_object(__name__)
+        app.run(debug=True)
+    
     import fixture
     if len(sys.argv) == 2:
         fixture.process(sys.argv[1], db, Category, ResellerCategory, User, Page)

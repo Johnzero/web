@@ -1,28 +1,254 @@
 {% extends "layout.html" %}
 
-
 {% block title %}首页{% endblock %}
 
-{% block slide %}
-	<div id="slide">
-		<a href="/"><img src="http://placehold.it/930x180" alt="" class="img-polaroid"></a>
-	</div>
+{% block body %}
+    <div class="banner">
+        <div class="container">
+            <div class="row-fluid center">
+                <img src="{{ url_for('static', filename='images/brands.png') }}"/>
+            </div>
+            <div class="row-fluid">
+                <div id="slides">
+                    <div class="slides_container">
+                        <div class="slide">
+                            <a href="#" title="测试1"><img src="{{ url_for('static', filename='images/demo/slide2.jpg') }}" title="测试图片2测试图片2" /></a>
+                            <div class="caption" style="bottom:0">
+                                <p>Happy Bokeh Thursday!</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <a href="#" title="测试2"><img src="{{ url_for('static', filename='images/demo/slide3.jpg') }}" title="测试图片3测试图片2" /></a>
+                            <div class="caption" style="bottom:0">
+                                <p>Happy Thursday!</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <a href="#" title="测试2"><img src="{{ url_for('static', filename='images/demo/slide4.jpg') }}" title="测试图片4测试图片2" /></a>
+                            <div class="caption" style="bottom:0">
+                                <p>Happy!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid middle-box">
+                <div class="span4">
+                    <h4 class="yahei"><span class="about"></span>关于富光</h4>
+                    <div class="text">
+                        安徽省富光实业股份有限公司（原为安徽省富光塑胶有限公司），位于中国科教城合肥市国家AAAA级风景区—中国历史文化名镇三河，创建于1984年...
+                    </div>
+                    <div class="more">
+                        <a href="#">更多信息</a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <h4 class="yahei"><span class="news"></span>富光动态</h4>
+                    <div class="text">
+                        <strong><a href="">FGA富光招商大会</a></strong> 7月21至22日，以“大战略、大格局、大未来”为主题的“FGA-富光”招商盛会在合肥鸿瑞金陵大酒店隆重召开。
+                        <small>(2012.7.23)</small>
+                    </div>
+                    <div class="more">
+                        <a href="#">更多动态</a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <h4 class="yahei"><span class="network"></span>销售网络</h4>
+                    <div style="margin-left: 60px;">
+                        <img src="{{ url_for('static', filename='images/network-china.gif') }}"/>
+                    </div>
+                    <div class="more">
+                        <a href="#">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="products">
+        <div class="container border-line">
+            <h4 class="yahei">最新产品</h4>
+            <div class="fg-pager">
+                <a href="#" class="prev"></a><a href="#" class="next"></a>
+            </div>
+            <div class="row-fluid product-list">
+                <div class="span4">
+                    <img src="http://placekitten.com/250/148" class="img-polaroid"/>
+                    <div class="text">
+                        <dl>
+                            <dt>300ML时尚吸管太空杯</dt>
+                            <hr/>
+                            <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="span4">
+                    <img src="http://placekitten.com/250/148" class="img-polaroid"/>
+                    <div class="text">
+                        <dl>
+                            <dt>300ML时尚吸管太空杯</dt>
+                            <hr/>
+                            <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="span4">
+                    <img src="http://placekitten.com/250/148" class="img-polaroid"/>
+                    <div class="text">
+                        <dl>
+                            <dt>300ML时尚吸管太空杯</dt>
+                            <hr/>
+                            <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="middle-banner">
+        <div class="container">
+            <img src="{{ url_for('static', filename='images/middle-banner.jpg') }}" />
+        </div>
+    </div>
+    
+    <div class="misc">
+        <div class="container border-line">
+            <div class="row-fluid">
+                <div class="span8">
+                    <h4 class="yahei">对话设计师</h4>
+                    <div class="fg-pager">
+                        <a href="#" class="prev"></a><a href="#" class="next"></a>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <img src="http://placekitten.com/250/148" class="img-polaroid dialog-image"/>
+                        </div>
+                        <div class="span6">
+                            <dl>
+                                <dt>300ML时尚吸管太空杯</dt>
+                                <hr/>
+                                <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
+                                <hr/>
+                                <div class="desc">
+                                    <i class="icon-calendar"></i> 2012.9.15
+                                    <i class="icon-user"></i> <a href="">Daniel Yang</a>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <h4 class="yahei">消费者的声音</h4>
+                    <div class="fg-pager">
+                        <a href="#" class="prev"></a><a href="#" class="next"></a>
+                    </div>
+                    
+                    <div class="quote">
+                        <img src="http://placekitten.com/50/50" class="img-polaroid pull-right"/>
+                        <blockquote>
+                            <p>用过富光不锈钢保温杯,杯体造型简洁大方,手感奇特。圆弧杯口结构增加了口部厚度，隔热防烫，口感合适。无尾真空，保凉保热。.</p>
+                            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="system">
+        <div class="container border-line">
+            <div class="row-fluid">
+                <div class="span4">
+                    <h4 class="yahei">邮箱登录</h4>
+                    <script type="text/javascript" src="http://exmail.qq.com/zh_CN/htmledition/js_biz/outerlogin.js"  charset="gb18030"></script>
+                    <div id="divLoginpanelHor"><div class="bizmail_LoginBox">
+                    <form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="return checkInput()">
+                        <label class="control-label" for="uin">用户名:</label>
+                        <input type="text" placeholder="用户名" id="uin" name="uin"/>
+                        <label class="control-label" for="password">密码:</label>
+                        <input type="password" id="password" placeholder="密码" name="pwd"/>
+                        <hr/>
+                        <button type="submit" class="btn">登录</button>
+                        <a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&amp;t=bizmail_orz" target="_blank">忘记密码？</a>
+                        <input type="hidden" name="firstlogin" value="false">
+                        <input type="hidden" name="errtemplate" value="dm_loginpage">
+                        <input type="hidden" name="aliastype" value="other">
+                        <input type="hidden" name="dmtype" value="bizmail">
+                        <input type="hidden" name="p" value="">
+                        <input type="hidden" name="domain" value="fuguang.cn">
+                      </form>
+                    </div></div>
+                </div>
+                <div class="span4">
+                    <h4 class="yahei">优质经销商</h4>
+                    <div class="row-fluid">
+                        <ul class="thumbnails">
+                          <li class="span3">
+                            <a href="#">
+                              <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                            </a>
+                          </li>
+                          <li class="span3">
+                            <a href="#">
+                              <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                            </a>
+                          </li>
+                          <li class="span3">
+                            <a href="#">
+                              <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                            </a>
+                          </li>
+                          <li class="span3">
+                            <a href="#">
+                              <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                            </a>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span4">
+                    <h4 class="yahei">富光微博群</h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
-{% block body %}
+{% block extra_js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/slides.min.jquery.js') }}"></script>
+    <script type="text/javascript">
+        Cufon.replace('.main-menu li a,.yahei');
+        $(function(){
+            $('input, textarea').placeholder();
+            $('#slides').slides({
+                    preload: true,
+                    preloadImage: "{{ url_for('static', filename='images/loading.gif') }}",
+                    play: 6000,
+                    pause: 2500,
+                    fadeSpeed: 500,
+                    slideSpeed: 1000,
+                    hoverPause: true,
+                    animationStart: function(current){
+                            $('.caption').animate({
+                                    bottom:-35
+                            },100);
+                    },
+                    animationComplete: function(current){
+                            $('.caption').animate({
+                                    bottom:0
+                            },200);
+                    },
+                    slidesLoaded: function() {
+                            $('.caption').animate({
+                                    bottom:0
+                            },200);
+                    }
+            });
+        });
+        
+    </script>
 
-<div class="container">
-    <div class="row">
-	<div class="span4">
-		<h4>关于富光</h4>
-	</div>
-	<div class="span4">
-		<h4>富光动态</h4>
-	</div>
-	<div class="span4">
-		asd
-	</div>
-    </div>
-</div>
-
-{% endblock body %}
+{% endblock %}
