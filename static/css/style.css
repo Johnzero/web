@@ -21,6 +21,10 @@ a:hover, a:focus{
     width:960px;
 }
 
+blockquote{
+    border-left: 5px solid #D74040;
+}
+
 .border-line{
     border:solid 1px #E8E8E8;
     border-bottom: none;
@@ -85,7 +89,6 @@ a:hover, a:focus{
 }
 
 .fg-menu{
-    height: 120px;
     background: url('../images/menu-bg.png') no-repeat center top;
     
 }
@@ -245,7 +248,6 @@ a:hover, a:focus{
     border-bottom: solid 3px #F0F0F0;
 }
 
-
 .misc .dialog-image{
     margin-left: 30px;
 }
@@ -265,7 +267,7 @@ a:hover, a:focus{
 
 .misc .quote{
     background: url('../images/quote-bg.png') no-repeat center top;
-    padding: 6px;
+    padding: 10px;
 }
 
 .system .container{
@@ -379,4 +381,105 @@ a:hover, a:focus{
     color:#fff;
     border-top:1px solid #000;
     text-shadow:none;
+}
+
+
+/*
+ * about page.
+ */
+
+.middle-banner{
+    background: url('../images/middle-banner-bg.jpg') no-repeat top center;
+    padding-top: 60px;
+}
+
+.middle-banner .page-title{
+    color: #fff;
+    display: inline-block;
+    height: 65px;
+    width: 112px;
+    background: url('../images/title-bg.png') no-repeat;
+    font-size: 24px;
+    text-align: center;
+    padding: 10px 0 0 0;
+}
+
+.middle-banner .content{
+    background-color: white;
+    border: solid 1px #E8E8E8;
+    border-bottom: solid 3px #E8E8E8;
+}
+
+.middle-banner .content .span8{
+    padding: 30px;
+}
+
+.middle-banner .content .span4{
+    border: solid 1px #E8E8E8;
+    border-top: solid 3px #D74040;
+    background-color: #FCFCFC;
+    padding: 10px;
+}
+
+.middle-banner .content .span4 .nav-list li{
+    padding-left: 10px;
+    border-bottom: solid 1px #F1F0F0;
+}
+
+.middle-banner .content .span4 .nav-list li i{
+    float: left;
+    display: inline-block;
+    margin: 10px 10px 6px 0;
+    height: 6px;
+    width: 4px;
+    background: url('../images/list-arrow.png') no-repeat 0 0;
+}
+
+.middle-banner .content .span4 .nav-list li.active i{
+    background-position: -4px 0;
+}
+
+.middle-banner .content .span4 .nav-list > .active > a,
+.middle-banner .content .span4 .nav-list > .active > a:hover {
+    background-color: #D74040;
+}
+
+.middle-banner .content .span4 .nav-header{
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.middle-banner .content .span4 #right-col-tab{
+    margin-top: 40px;
+}
+
+.middle-banner .content .span4 .tab-content{
+    
+}
+
+.middle-banner .content .span4 .tab-content ul li{
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.middle-banner .content .span4 .tab-content ul li img{
+    float: left;
+    margin-right: 10px;
+}
+
+.middle-banner .content .span4 .tab-content ul li dl{
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+.middle-banner .content .span4 .tab-content ul li hr{
+    margin: 5px;
+}
+
+.middle-banner .content .span4 .tab-content ul li dd{
+    color: #999;
+    font-size: 12px;
 }

@@ -225,7 +225,11 @@ class PageView(views.View):
             item = Page.query.filter_by(code=code, type=self.type).first_or_404()
         else:
             item = Page.query.filter_by(type=self.type).first_or_404()
-        return render_template(self.template_name, page=item, object=Page)
+        
+        #add some news and products.
+        news_list = News.query.filter(Category.name=='新闻动态').order_by('created desc').limit(10)
+        
+        return render_template(self.template_name, page=item, object=Page, news_list=news_list)
 
 app.add_url_rule('/about/<string:code>', view_func=PageView.as_view('about', template_name='about.html', type='about'))
 app.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', template_name='brand.html', type='brand'))
