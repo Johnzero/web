@@ -26,7 +26,8 @@ from simplejson import dumps
 #------------------------------------------------------------------------------------------------------------
 #配置定义
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fuguang:fuguang@localhost:5432/fuguang'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://fuguang:fuguang@127.0.0.1/fuguang_web'
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static', 'upload')
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 app.config['SECRET_KEY'] = 'zuSAyu3XRqGRvAg0HxsKX12Nrvf6Hk3AgZCWg1S1j9Y='
@@ -364,6 +365,6 @@ if __name__ == '__main__':
         fixture.process(sys.argv[1], db, Category, ResellerCategory, User, Page)
     else:
         if sys.getdefaultencoding() != 'utf-8':
-        	reload(sys)
-        	sys.setdefaultencoding('utf-8')
+            reload(sys)
+            sys.setdefaultencoding('utf-8')
         run()
