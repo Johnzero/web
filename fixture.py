@@ -43,6 +43,8 @@ def init_db(db, Category, ResellerCategory, User, Page):
     db.session.add(Page(1, 'philosophy', '富光理念', 'about', '富光','philosophy'))
     db.session.add(Page(1, 'honor', '富光荣誉', 'about', '富光', 'honor'))
     db.session.add(Page(1, 'service', '客户服务', 'service', '富光service', 'service'))
+    db.session.add(Page(1, 'junzilan', '君子兰', 'about', '富光,君子兰', '君子兰实业简介'))
+    
     db.session.add(Page(1, 'fg', '富光', 'brand', '富光', 'brand'))
     db.session.add(Page(1, 'fga', 'FGA', 'brand', '富光,FGA', 'brand'))
     db.session.add(Page(1, 'bestjoy', '拾喜', 'brand', '富光,拾喜', 'brand'))

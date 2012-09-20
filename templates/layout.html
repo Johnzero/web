@@ -31,7 +31,7 @@
                     </form>
                 </div>
                 <div class="span5" id="user-area">
-                        <a href="" class="yahei">注册</a> | <a href="" class="yahei">登录</a>
+                        <a href="" class="yahei">注册</a> | <a href="{{ url_for('login') }}" class="yahei">登录</a>
                     </div>
                 <div class="span4 header-400">
                     <img src="{{ url_for('static', filename='images/400.png') }}" class="pull-right" />
@@ -43,7 +43,7 @@
 
     <div class="fg-menu">
         <div class="container">
-            <div class="row">
+            <div class="row-fluid">
                 <div class="span3">
                     <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo-big.png') }}"/></a>
                 </div>
@@ -61,10 +61,11 @@
                                 <li{% if 'philosophy' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='philosophy') }}">富光理念</a></li>
                                 <li{% if 'honor' in request.path and 'about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='honor') }}">荣誉资质</a></li>
                                 <li class="divider"></li>
+                                <li{% if 'junzilan' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('about', code='junzilan') }}">君子兰</a></li>
+                                <li class="divider"></li>
                                 <li{% if 'news' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('news') }}">新闻动态</a></li>
                             </ul>
                         </li>
-                        
                         <li class="dropdown{% if 'brand' == request.endpoint %} active{% endif %}">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 旗下品牌
@@ -118,7 +119,11 @@
     
     <div class="copyright">
         <div class="container">
-            <img src="{{ url_for('static', filename='images/copyright.gif') }}"/>
+            <div class="row-fluid">
+                <div class="span12">
+                    <img src="{{ url_for('static', filename='images/copyright.gif') }}"/>
+                </div>
+            </div>
         </div>
     </div>
     
