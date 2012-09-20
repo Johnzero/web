@@ -1,0 +1,1 @@
+from .views import frontend as bp_frontend

@@ -1,0 +1,1 @@
+from .views import page as bp_page

@@ -22,7 +22,7 @@
                     <ul class="nav nav-list">
                         <li class="nav-header yahei">关于富光</li>
                         {% for page in object.query.filter_by(type='about') %}
-                        <li{% if page.code in request.path and 'about' == request.endpoint %} class="active"{% endif %}><i></i><a href="{{ url_for('about', code=page.code) }}">{{ page.title }}</a></li>
+                        <li{% if page.code in request.path and 'about' == request.endpoint %} class="active"{% endif %}><i></i><a href="{{ url_for('page.about', code=page.code) }}">{{ page.title }}</a></li>
                         {% endfor %}
                     </ul>
                     
