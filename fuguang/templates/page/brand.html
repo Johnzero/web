@@ -22,8 +22,11 @@
                     <ul class="nav nav-list">
                         <li class="nav-header yahei">旗下品牌</li>
                         {% for page in object.query.filter_by(type='brand') %}
-                        <li{% if page.code in request.path and 'brand' == request.endpoint %} class="active"{% endif %}><i></i><a href="{{ url_for('about', code=page.code) }}">{{ page.title }}</a></li>
+                        <li{% if page.code in request.path and 'page.brand' == request.endpoint %} class="active"{% endif %}><i></i><a href="{{ url_for('page.brand', code=page.code) }}">{{ page.title }}</a></li>
                         {% endfor %}
+                        {% if current_user.is_editor %}
+                        <li><i></i><a href="{{ url_for('page.edit', id=page.id) }}">编辑本页</a></li>
+                        {% endif %}
                     </ul>
                     
                     <ul id="right-col-tab" class="nav nav-tabs">

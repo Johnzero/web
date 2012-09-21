@@ -76,13 +76,15 @@ def createuser(username=None, password=None, email=None, role=None):
     print "User created with ID", user.id
     
 @manager.command
+def initdb():
+    from fuguang.fixture import init_db
+    init_db(db)
+
+@manager.command
 def createall():
     "Creates database tables"
     
     db.create_all()
-    from fuguang.fixture import init_db
-    init_db(db)
-    
     
 @manager.command
 def dropall():

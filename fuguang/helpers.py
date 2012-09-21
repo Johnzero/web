@@ -11,12 +11,35 @@ import urlparse
 import functools
 
 from datetime import datetime
+import sys, os, uuid, simplejson as json
 
-from flask import current_app, g
+from flask import current_app, g, Response
 
 from fuguang.extensions import cache
 
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def path2url(path):
+    return '/%s/' % ('/'.join(path.split('\\')))
+
+def jsonify(f):
+    """返回json"""
+    def inner(*args, **kwargs):
+        return Response(json.dumps(f(*args, **kwargs)), mimetype='application/json')
+    return inner
+
+#@app.context_processor
+#def active_processor():
+#    def page_active(code_list, path):
+#        base_name = os.path.basename(path)
+#        return base_name in code_list
+#    return dict(page_active=page_active)
 
 
 def keep_login_url(func):

@@ -1,0 +1,1 @@
+from .views import news as bp_news

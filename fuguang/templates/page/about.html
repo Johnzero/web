@@ -24,6 +24,9 @@
                         {% for page in object.query.filter_by(type='about') %}
                         <li{% if page.code in request.path and 'about' == request.endpoint %} class="active"{% endif %}><i></i><a href="{{ url_for('page.about', code=page.code) }}">{{ page.title }}</a></li>
                         {% endfor %}
+                        {% if current_user.is_editor %}
+                        <li><i></i><a href="{{ url_for('page.edit', id=page.id) }}">编辑本页</a></li>
+                        {% endif %}
                     </ul>
                     
                     <ul id="right-col-tab" class="nav nav-tabs">

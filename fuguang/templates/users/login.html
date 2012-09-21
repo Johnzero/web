@@ -4,27 +4,22 @@
 {% block title %} 用户登录{% endblock %}
 {% block body %}
 
-    <form method="POST" action=".">
-        {{ form.hidden_tag() }}
-        {{ form.next }}
-        {{ form.csrf_token }}
-        <ul>
-            <li>
-                {{ form.username.label }} 
-                {{ form.username(size=15) }}
-            </li>
-            <li>
-                {{ form.password.label }} 
-                {{ form.password(size=15) }}
-            </li>
-            <li>
-                {{ form.remember.label(class_="checkbox") }}
-                {{ form.remember }}
-            </li>
-            <li>
-                {{ form.submit }}
-                </li>
-        </ul>
-    </form>
-
+<div class="container">
+    <div class="row-fluid">
+        <form method="POST" action=".">
+            <legend>用户登录</legend>
+            {{ form.hidden_tag() }}
+            {{ form.next }}
+            <label>{{ form.username.label }}</label>
+            {{ form.username(size=15) }}
+            <label>{{ form.password.label }}</label>
+            {{ form.password(size=15) }}
+            <label>{{ form.remember.label }}</label>
+            {{ form.remember(class_="checkbox") }}
+            <hr/>
+            {{ form.submit(class_="btn") }}
+        </form>
+    </div>
+</div>
+    
 {% endblock %}

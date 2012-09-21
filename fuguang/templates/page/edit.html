@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+
+{% block title %} 编辑 {{ page.title }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lib/redactor/redactor.css') }}" />
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='lib/redactor/langs/zh_CN.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/redactor/redactor.min.js') }}"></script>
+<script type="text/javascript"> 
+    $(document).ready(
+        function()
+        {
+            $('textarea').redactor(
+                {
+                    imageUpload: '/rd/upload',
+                    imageGetJson: '/rd/upload',
+                    lang: 'zh_cn'
+                }
+            );
+        }
+    );
+</script>
+
+{% endblock %}
+
+{% block body %}
+    
+<div class="middle-banner">
+    <div class="container">
+        <h1 class="page-title yahei">{{ page.title }}</h1>
+    </div>
+    <div class="container content">
+        <div class="row-fluid">
+            <div class="left-col">
+                <form method="POST" action="{{ url_for('page.edit', id=page.id) }}">
+                    <legend>编辑 {{ page.title }}</legend>
+                    {{ form.hidden_tag() }}
+                    {{ form.keyword.label }}
+                    {{ form.keyword }}
+                    {{ form.content.label }}
+                    {{ form.content|safe }}
+                    <hr/>
+                    {{ form.submit(class_="btn") }}
+                     <a href="{{ url_for('') }}" class="btn cancel">取消</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

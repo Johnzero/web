@@ -1,0 +1,1 @@
+from .views import rd as bp_rd

@@ -39,7 +39,7 @@ def init_db(db):
     db.session.add(Page(user_id=id, code='service', title=u'客户服务', type='service', keyword=u'富光service', content='service'))
     db.session.add(Page(user_id=id, code='junzilan', title=u'君子兰', type='about', keyword=u'富光,君子兰', content=u'君子兰实业简介'))
     
-    db.session.add(Page(user_id=id, code='fg', title=u'富光', type='brand', keyword=u'富光', content='brand'))
+    db.session.add(Page(user_id=id, code='fuguang', title=u'富光', type='brand', keyword=u'富光', content='brand'))
     db.session.add(Page(user_id=id, code='fga', title='FGA', type='brand', keyword=u'富光,FGA', content='brand'))
     db.session.add(Page(user_id=id, code='bestjoy', title=u'拾喜', type='brand', keyword=u'富光,拾喜', content='brand'))
     db.session.add(Page(user_id=id, code='teamaster', title=u'茶马士', type='brand', keyword='茶马士', content='brand'))
