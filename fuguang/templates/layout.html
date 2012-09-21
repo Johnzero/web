@@ -31,7 +31,11 @@
                     </form>
                 </div>
                 <div class="span5" id="user-area">
-                        <a href="" class="yahei">注册</a> | <a href="" class="yahei">登录</a>{{request.endpoint}}
+                        {% if current_user.is_authenticated() %}
+                        欢迎: {{ current_user }} | <a href="{{ url_for('users.logout') }}" class="yahei">退出</a>
+                        {% else %}
+                        <a href="" class="yahei">注册</a> | <a href="{{ url_for('users.login') }}" class="yahei">登录</a>
+                        {% endif %}
                     </div>
                 <div class="span4 header-400">
                     <img src="/static/images/400.png" class="pull-right" />

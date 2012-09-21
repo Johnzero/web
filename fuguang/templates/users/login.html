@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+
+{% block title %} 用户登录{% endblock %}
+{% block body %}
+
+    <form method="POST" action=".">
+        {{ form.hidden_tag() }}
+        {{ form.next }}
+        {{ form.csrf_token }}
+        <ul>
+            <li>
+                {{ form.username.label }} 
+                {{ form.username(size=15) }}
+            </li>
+            <li>
+                {{ form.password.label }} 
+                {{ form.password(size=15) }}
+            </li>
+            <li>
+                {{ form.remember.label(class_="checkbox") }}
+                {{ form.remember }}
+            </li>
+            <li>
+                {{ form.submit }}
+                </li>
+        </ul>
+    </form>
+
+{% endblock %}

@@ -8,9 +8,10 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 
 from flask import Blueprint, url_for, redirect, g, flash, request, current_app, render_template, send_from_directory 
 from flask.ext.mail import Message
+from flask.ext.login import login_required, fresh_login_required, current_user
 
 from fuguang.helpers import cached, keep_login_url
-from fuguang.permissions import auth
+
 
 frontend = Blueprint('frontend', __name__, url_prefix='/')
 

@@ -23,7 +23,7 @@ class DefaultConfig(object):
     
     SECRET_KEY = "zuSAyu3XRqGRvAg0HxsKX12Nrvf6Hk3AgZCWg1S1j9Y="
 
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqldb://fuguang:fuguang@127.0.0.1/fuguang_web"
+    SQLALCHEMY_DATABASE_URI = "mysql+mysqldb://fuguang:fuguang@127.0.0.1/fuguang_web?charset=utf8"
 
     SQLALCHEMY_ECHO = False
 

@@ -11,10 +11,10 @@ from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash, cached_property
 
 from flask.ext.sqlalchemy import BaseQuery
-from flask.ext.principal import RoleNeed, UserNeed, Permission
+
+from flask.ext.login import UserMixin
 
 from fuguang.extensions import db
-from fuguang.permissions import null
 
 class Permissions(object):
 
@@ -26,26 +26,7 @@ class Permissions(object):
 
 
 class UserQuery(BaseQuery):
-    def from_identity(self, identity):
-        """
-        Loads user from flaskext.principal.Identity instance and
-        assigns permissions from user.
 
-        A "user" instance is monkeypatched to the identity instance.
-
-        If no user found then None is returned.
-        """
-        try:
-            user = self.get(int(identity.name))
-        except ValueError:
-            user = None
-
-        if user:
-            identity.provides.update(user.provides)
-
-        identity.user = user
-
-        return user
 
     def authenticate(self, login, password):
         
@@ -69,7 +50,7 @@ class UserQuery(BaseQuery):
         return user, authenticated
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     query_class = UserQuery
     
     # user roles
@@ -87,6 +68,7 @@ class User(db.Model):
 
     _password = db.Column("password", db.String(80))
     _openid = db.Column("openid", db.String(80), unique=True)
+    active = db.Column(db.Boolean, default=True)
     
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
@@ -97,9 +79,9 @@ class User(db.Model):
     def __repr__(self):
         return "<%s>" % self
     
-    @cached_property
-    def permissions(self):
-        return self.Permissions(self)
+    def is_active(self):
+        return self.active
+    
 
     def _get_password(self):
         return self._password
@@ -125,6 +107,21 @@ class User(db.Model):
     openid = db.synonym("_openid", 
                           descriptor=property(_get_openid,
                                               _set_openid))
+    @property
+    def is_admin(self):
+        return self.role >= self.ADMIN
+    
+    @property
+    def is_editor(self):
+        return self.role >= self.EDITOR
+    
+    @property
+    def is_dealer(self):
+        return self.role >= self.DEALER
+
+    @property
+    def is_dealer(self):
+        return self.role >= self.DEALER
 
     def check_openid(self, openid):
         if self.openid is None:

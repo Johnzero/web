@@ -10,21 +10,21 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 import os
 import logging
 
-
-
 from logging.handlers import SMTPHandler, RotatingFileHandler
 
 from flask import Flask, Response, request, g, jsonify, redirect, url_for, flash, render_template
 
-from flask.ext.principal import Principal, identity_loaded
 
-from fuguang.extensions import db, mail, oid, cache
+from fuguang.extensions import db, mail, oid, cache, login
 from fuguang.config import DefaultConfig
 from fuguang import helpers
 
 from fuguang.users import bp_users
 from fuguang.frontend import bp_frontend
 from fuguang.pages import bp_page
+
+from fuguang.users.models import User
+
 
 __all__ = ["create_app"]
 
@@ -46,9 +46,8 @@ def create_app(config=None, app_name=None, modules=None):
     configure_logging(app)
     configure_errorhandlers(app)
     configure_extensions(app)
-    configure_before_handlers(app)
+
     configure_template_filters(app)
-    #configure_context_processors(app)
 
     configure_modules(app, modules)
     
@@ -69,33 +68,9 @@ def configure_modules(app, modules):
         app.register_blueprint(module)
 
 def configure_template_filters(app):
-
     @app.template_filter()
     def timesince(value):
         return helpers.timesince(value)
-
-
-def configure_before_handlers(app):
-
-    @app.before_request
-    def authenticate():
-        g.user = getattr(g.identity, 'user', None)
-
-
-#def configure_context_processors(app):
-#
-#    @app.context_processor
-#    def get_tags():
-#        tags = cache.get("tags")
-#        if tags is None:
-#            tags = Tag.query.order_by(Tag.num_posts.desc()).limit(10).all()
-#            cache.set("tags", tags)
-#
-#        return dict(tags=tags)
-#
-#    @app.context_processor
-#    def config():
-#        return dict(config=app.config)
 
 
 def configure_extensions(app):
@@ -104,20 +79,8 @@ def configure_extensions(app):
     db.init_app(app)
     oid.init_app(app)
     cache.init_app(app)
+    login.setup_app(app)
 
-
-    # more complicated setups
-
-    configure_identity(app)
-    
-
-def configure_identity(app):
-
-    Principal(app)
-
-    @identity_loaded.connect_via(app)
-    def on_identity_loaded(sender, identity):
-        g.user = User.query.from_identity(identity)
 
 def configure_errorhandlers(app):
 
