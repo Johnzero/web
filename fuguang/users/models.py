@@ -11,22 +11,10 @@ from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash, cached_property
 
 from flask.ext.sqlalchemy import BaseQuery
-
 from flask.ext.login import UserMixin
-
 from fuguang.extensions import db
 
-class Permissions(object):
-
-    def __init__(self, obj):
-        self.obj = obj
-
-    def __getattr__(self, name):
-        return getattr(self.obj, name)
-
-
 class UserQuery(BaseQuery):
-
 
     def authenticate(self, login, password):
         
@@ -48,7 +36,6 @@ class UserQuery(BaseQuery):
             authenticated = False
 
         return user, authenticated
-
 
 class User(db.Model, UserMixin):
     query_class = UserQuery

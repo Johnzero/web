@@ -9,13 +9,15 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 
 from fuguang.users.models import User
 from fuguang.pages.models import Page
-
+from fuguang.news.models import Category, News
 
 def init_db(db):
-    #db.session.add(Category('新闻动态'))
-    #db.session.add(Category('公告'))
-    #db.session.add(Category('首页大图'))
-    #db.session.add(Category('对话设计师'))
+    db.session.add(Category(name='头条'))
+    
+    cate = Category(name='新闻动态')
+    db.session.add(cate)
+    db.session.add(Category(name='公告'))
+    db.session.add(Category(name='对话设计师'))
     #db.session.add(ResellerCategory('直营店'))
     #db.session.add(ResellerCategory('批发'))
     #db.session.add(ResellerCategory('FGA'))
@@ -43,4 +45,10 @@ def init_db(db):
     db.session.add(Page(user_id=id, code='fga', title='FGA', type='brand', keyword=u'富光,FGA', content='brand'))
     db.session.add(Page(user_id=id, code='bestjoy', title=u'拾喜', type='brand', keyword=u'富光,拾喜', content='brand'))
     db.session.add(Page(user_id=id, code='teamaster', title=u'茶马士', type='brand', keyword='茶马士', content='brand'))
+    
+    db.session.add(News(user=user, title="“FGA-富光”招商盛会隆重召开", excerpt="""7月21至22日，以“大战略、大格局、大未来”为主题的“FGA-富光”招商盛会在合肥鸿瑞金陵大酒店隆重召开。""",
+                        category= cate, content="""
+                        7月21至22日，以“大战略、大格局、大未来”为主题的“FGA-富光”招商盛会在合肥鸿瑞金陵大酒店隆重召开。会上，富光实业君子兰公司总经理吴良伟同志及其营销管理团队，详细介绍了“FGA-富光”品牌的地位、发展方向及战略规划，并与参会的全国客商进行了深入探讨，达成广泛共识，形成了一揽子战略框架合作协议，此次招商盛会的召开，不仅开创了富光实业发展的新空间，更为消费者提供了更丰富的产品选择，也极大的满足了消费者的个性化需求，对完善和细化“FGA-富光”品牌建设，将产生深远和重要的指导意义。富光实业吴秀杰董事长及有关方面负责同志，应邀出席会议。
+                        """))
+    
     db.session.commit()

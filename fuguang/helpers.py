@@ -25,8 +25,6 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-def path2url(path):
-    return '/%s/' % ('/'.join(path.split('\\')))
 
 def jsonify(f):
     """返回json"""
@@ -74,19 +72,19 @@ def timesince(dt, default=None):
     """
     
     if default is None:
-        default = gettext("just now")
+        default = '刚刚'
 
     now = datetime.utcnow()
     diff = now - dt
     
     periods = (
-        (diff.days / 365, "year", "years"),
-        (diff.days / 30, "month", "months"),
-        (diff.days / 7, "week", "weeks"),
-        (diff.days, "day", "days"),
-        (diff.seconds / 3600, "hour", "hours"),
-        (diff.seconds / 60, "minute", "minutes"),
-        (diff.seconds, "second", "seconds"),
+        (diff.days / 365, "year", "年"),
+        (diff.days / 30, "month", "月"),
+        (diff.days / 7, "week", "周"),
+        (diff.days, "day", "天"),
+        (diff.seconds / 3600, "hour", "小时"),
+        (diff.seconds / 60, "minute", "分钟"),
+        (diff.seconds, "second", "秒钟"),
     )
 
     for period, singular, plural in periods:
@@ -94,8 +92,8 @@ def timesince(dt, default=None):
         if not period:
             continue
 
-        singular = u"%%(num)d %s ago" % singular
-        plural = u"%%(num)d %s ago" % plural
+        singular = u"%%(num)d %s 前" % singular
+        plural = u"%%(num)d %s 前" % plural
 
         return ngettext(singular, plural, num=period)
 

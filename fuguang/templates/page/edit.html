@@ -44,8 +44,8 @@
                     {{ form.content.label }}
                     {{ form.content|safe }}
                     <hr/>
-                    {{ form.submit(class_="btn") }}
-                     <a href="{{ url_for('') }}" class="btn cancel">取消</a>
+                    {{ form.submit(class_="btn btn-primary") }}
+                     <a href="{{ url_for('page.'+page.type, code=page.code) }}" class="btn btn-warning">取消</a>
                 </form>
             </div>
         </div>

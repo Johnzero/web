@@ -11,10 +11,10 @@ from datetime import datetime
 
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String(50))
-    title = db.Column(db.String(150))
+    code = db.Column(db.Unicode(50))
+    title = db.Column(db.Unicode(150))
     keyword = db.Column(db.Text())
-    type = db.Column(db.String(50))
+    type = db.Column(db.Unicode(50))
     content = db.Column(db.Text())
     created = db.Column(db.DateTime(), default=datetime.now)
     updated = db.Column(db.DateTime(), onupdate=datetime.now)

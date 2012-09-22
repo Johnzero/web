@@ -10,7 +10,11 @@ import os
 
 def get_upload_folder():
     path = os.path.join(os.path.dirname(__file__), 'static', 'upload')
-    if not os.path.exists(path): os.mkdir(path)
+    if not os.path.exists(path):
+        os.mkdir(path)
+        os.mkdir(os.path.join(path, 'product'))
+        os.mkdir(os.path.join(path, 'editor'))
+        os.mkdir(os.path.join(path, 'news'))
     return path
 
 
@@ -41,6 +45,10 @@ class DefaultConfig(object):
     CACHE_DEFAULT_TIMEOUT = 300
     
     UPLOAD_FOLDER = get_upload_folder()
+    EDITOR_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'editor')
+    PRODUCT_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'product')
+    NEWS_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'news')
+    
     MAX_CONTENT_LENGTH = 2 * 1024 * 1024
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
     

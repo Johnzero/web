@@ -8,7 +8,6 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 
 from flask import Blueprint, url_for, redirect, g, \
     flash, request, current_app, render_template, send_from_directory, views
-from flask.ext.mail import Message
 
 from flask.ext.login import login_required, fresh_login_required, current_user
 from fuguang.helpers import cached, keep_login_url
@@ -40,7 +39,7 @@ page.add_url_rule('/brand/<string:code>', view_func=PageView.as_view('brand', te
 page.add_url_rule('/service', view_func=PageView.as_view('service', template_name='service.html', type='service'))
 
 
-@page.route("/page/edit/<int:id>", methods=["GET", "POST"])
+@page.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
     page = Page.query.get_or_404(id)
     form = PageForm(request.form, page)
@@ -49,7 +48,6 @@ def edit(id):
         form.populate_obj(page)
         flash('修改成功。','info')
         db.session.commit()
-        
         return redirect(url_for(('page.%s' % page.type), code=page.code))
     
     return render_template("page/edit.html", form=form, page=page)

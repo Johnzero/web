@@ -458,12 +458,15 @@ blockquote{
     
 }
 
-.middle-banner .content .right-col .tab-content ul li{
+.middle-banner .content .right-col .tab-content ul.small-list{
+    margin: 10px;
+}
+.middle-banner .content .right-col .tab-content ul.small-list li{
     list-style: none;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
-.middle-banner .content .right-col .tab-content ul li img{
+.middle-banner .content .right-col .tab-content ul.small-list li img{
     float: left;
     margin-right: 10px;
 }
@@ -488,9 +491,50 @@ blockquote{
  */
 
 .middle-banner .thumbnails{
-    margin: 30px;
+    margin: 10px;
 }
 
 .middle-banner .product-category{
     margin: 10px;
+}
+
+/**
+ * News
+ */
+
+.middle-banner .content .left-col .news-item{
+    margin-bottom: 10px;
+}
+
+.middle-banner .content .left-col .news-item hr{
+    margin: 5px;
+}
+
+.middle-banner .content .left-col .news-item h5{
+    color: #666;
+    border-bottom: solid 1px #E9E9E9;
+}
+
+.middle-banner .content .left-col .news-item h5 i{
+    display: inline-block;
+    width: 75px;
+    height: 34px;
+    background-color: #E9E9E9;
+    border-left: solid 5px #D74040;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 18px;
+    margin-right: 30px;
+}
+
+.middle-banner .content .left-col .news-item .news-content{
+    color: #A1A0A0;
+}
+
+.middle-banner .content .left-col .news-item .desc{
+    color: #A1A0A0;
+    font-size: 12px;
+}
+.middle-banner .content .left-col .news-item .desc i{
+    margin-left: 10px;
 }

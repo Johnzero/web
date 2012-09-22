@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+
+{% block title %} 修改 {{ category.name }} {% endblock %}
+
+
+{% block body %}
+    
+<div class="middle-banner">
+    <div class="container">
+        <h1 class="page-title yahei">修改栏目</h1>
+    </div>
+    <div class="container content">
+        <div class="row-fluid">
+            <div class="left-col">
+                <form method="POST" action="{{ url_for('news.category_edit', id=category.id) }}">
+                    <legend>修改栏目</legend>
+                    {{ form.hidden_tag() }}
+                    {{ form.name.label }}
+                    {{ form.name }}
+                    <hr/>
+                    <input type="submit" class="btn btn-primary" value="保存"/>
+                     <a href="{{ url_for('news.list') }}" class="btn btn-warning">取消</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
