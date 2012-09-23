@@ -74,28 +74,21 @@ def timesince(dt, default=None):
     if default is None:
         default = '刚刚'
 
-    now = datetime.utcnow()
+    now = datetime.now()
     diff = now - dt
-    
     periods = (
-        (diff.days / 365, "year", "年"),
-        (diff.days / 30, "month", "月"),
-        (diff.days / 7, "week", "周"),
-        (diff.days, "day", "天"),
-        (diff.seconds / 3600, "hour", "小时"),
-        (diff.seconds / 60, "minute", "分钟"),
-        (diff.seconds, "second", "秒钟"),
+        (diff.days / 365, "年"),
+        (diff.days / 30,  "月"),
+        (diff.days / 7,  "周"),
+        (diff.days, "天"),
+        (diff.seconds / 3600,  "小时"),
+        (diff.seconds / 60, "分钟"),
+        (diff.seconds, "秒钟"),
     )
 
-    for period, singular, plural in periods:
-        
-        if not period:
-            continue
-
-        singular = u"%%(num)d %s 前" % singular
-        plural = u"%%(num)d %s 前" % plural
-
-        return ngettext(singular, plural, num=period)
+    for period, name in periods:
+        if period > 0:
+            return "%d %s 前" % (period, name)
 
     return default
 

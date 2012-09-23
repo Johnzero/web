@@ -49,8 +49,9 @@ class DefaultConfig(object):
     PRODUCT_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'product')
     NEWS_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'news')
     
+    NEWS_PER_PAGE = 5
+    
     MAX_CONTENT_LENGTH = 2 * 1024 * 1024
-    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
     
 
 class TestConfig(DefaultConfig):

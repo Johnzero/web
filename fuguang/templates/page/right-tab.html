@@ -7,7 +7,7 @@
                           <ul class="small-list">
                             {% for news in news_list %}
                             <li>
-                                <a href="{{ url_for('news.view', id=news.id) }}"><img src="http://placekitten.com/50/50" class="img-polaroid"/></a>
+                                <a href="{{ url_for('news.view', id=news.id) }}"><img src="{{ news.get_thumb() }}" class="img-polaroid"/></a>
                                 <dt>
                                     <dl><a href="{{ url_for('news.view', id=news.id) }}">{{ news.title }}</a></dl>
                                     <hr/>

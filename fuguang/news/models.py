@@ -8,6 +8,7 @@ from fuguang.extensions import db
 from datetime import datetime
 from fuguang.users.models import User
 
+from flask.ext.sqlalchemy import BaseQuery
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,7 +29,24 @@ class News(db.Model):
     updated = db.Column(db.DateTime(), onupdate=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship(User, primaryjoin=user_id == User.id)
-    
+    cover = db.Column(db.Text())
     
     def __unicode__(self):
         return self.title
+    
+    def get_cover(self):
+        if self.cover:
+            return '/static/upload/news/' + self.cover
+        return 'http://placekitten.com/580/150'
+    
+    def get_thumb(self):
+        if self.cover:
+            l = self.cover.split('/')
+            return '/static/upload/news/%s/thumb/%s' % (l[0], 'small-'+l[1])
+        return 'http://placekitten.com/50/50'
+    
+    def get_midium_thumb(self):
+        if self.cover:
+            l = self.cover.split('/')
+            return '/static/upload/news/%s/thumb/%s' % (l[0], 'midium-'+l[1])
+        return 'http://placekitten.com/260/158'

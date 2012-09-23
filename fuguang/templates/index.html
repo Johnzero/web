@@ -45,11 +45,11 @@
                 <div class="span4">
                     <h4 class="yahei"><span class="news"></span>富光动态</h4>
                     <div class="text">
-                        <strong><a href="">FGA富光招商大会</a></strong> 7月21至22日，以“大战略、大格局、大未来”为主题的“FGA-富光”招商盛会在合肥鸿瑞金陵大酒店隆重召开。
-                        <small>(2012.7.23)</small>
+                        <strong><a href="">{{ news_list[0].title }}</a></strong> {{ news_list[0].excerpt }}
+                        <small>{{ news_list[0].created|timesince }}</small>
                     </div>
                     <div class="more">
-                        <a href="#">更多动态</a>
+                        <a href="{{ url_for('news.list') }}">更多动态</a>
                     </div>
                 </div>
                 <div class="span4">
@@ -118,21 +118,21 @@
                 <div class="span8">
                     <h4 class="yahei">对话设计师</h4>
                     <div class="fg-pager">
-                        <a href="#" class="prev"></a><a href="#" class="next"></a>
+                        <a href="#" class="next" title="更多对话"></a>
                     </div>
                     <div class="row-fluid">
                         <div class="span6">
-                            <img src="http://placekitten.com/250/148" class="img-polaroid dialog-image"/>
+                            <img src="{{ dialog.get_midium_thumb() }}" class="img-polaroid dialog-image"/>
                         </div>
                         <div class="span6">
                             <dl>
-                                <dt>300ML时尚吸管太空杯</dt>
+                                <dt>{{ dialog.title }}</dt>
                                 <hr/>
-                                <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
+                                <dd>{{ dialog.excerpt }}</dd>
                                 <hr/>
                                 <div class="desc">
-                                    <i class="icon-calendar"></i> 2012.9.15
-                                    <i class="icon-user"></i> <a href="">Daniel Yang</a>
+                                    <i class="icon-calendar"></i> 2012.9.15 
+                                    <a href="{{ url_for('news.view', id=dialog.id) }}" class="pull-right"><i class="icon-share-alt"></i>详细</a>
                                 </div>
                             </dl>
                         </div>
@@ -141,7 +141,7 @@
                 <div class="span4">
                     <h4 class="yahei">消费者的声音</h4>
                     <div class="fg-pager">
-                        <a href="#" class="prev"></a><a href="#" class="next"></a>
+                        <a href="#" class="next"></a>
                     </div>
                     
                     <div class="quote">

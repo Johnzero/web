@@ -34,7 +34,7 @@ def upload():
             file.save(os.path.join(dir, filename))
             #thumb
             im = Image.open(os.path.join(dir, filename))
-            im.thumbnail(thumb_size)
+            im.thumbnail(thumb_size, Image.ANTIALIAS)
             im.save(os.path.join(thumb_dir, filename), "JPEG")
             
             return {'filelink':'/static/upload/editor/%s/%s' % (folder_name, filename)}

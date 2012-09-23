@@ -26,7 +26,7 @@ from fuguang.news import bp_news
 from fuguang.rd import bp_rd
 
 from fuguang.users.models import User
-
+from fuguang.news.models import News
 
 __all__ = ["create_app"]
 
@@ -52,9 +52,13 @@ def create_app(config=None, app_name=None, modules=None):
     configure_template_filters(app)
 
     configure_modules(app, modules)
-    
-    return app
+    @cache.memoize(100)
+    @app.context_processor
+    def inject_data():
+        news_list = News.query.order_by(News.created.desc()).limit(5)
+        return dict(news_list=news_list)
 
+    return app
 
 def configure_app(app, config):
     
@@ -76,7 +80,6 @@ def configure_template_filters(app):
 
 
 def configure_extensions(app):
-
     mail.init_app(app)
     db.init_app(app)
     oid.init_app(app)
@@ -85,7 +88,6 @@ def configure_extensions(app):
 
 
 def configure_errorhandlers(app):
-
     if app.testing:
         return
 
