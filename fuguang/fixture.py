@@ -10,18 +10,76 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 from fuguang.users.models import User
 from fuguang.pages.models import Page
 from fuguang.news.models import Category, News
+from fuguang.reseller.models import Reseller, ResellerCategory
+from fuguang.product.models import Tag
+
+
+taglist = {'brand' : """
+富光
+FGA
+茶马士
+拾喜
+""",
+'meterial' : """
+玻璃
+水晶玻璃
+不锈钢
+塑料
+生态骨瓷
+生态紫砂
+钛合金
+""",
+'scenario':"""
+办公室
+家用
+旅游
+校园
+车用
+""",
+'group':"""
+中小学生
+大学生
+白领
+驴友
+长辈
+""",
+'capacity':"""
+100-200
+200-400
+400-600
+600-1000
+1000+
+""",
+'price':"""
+10-49
+50-99
+100-149
+150-200
+200-300
+300-400
+400+
+""",
+'color':"""
+"""
+}
+
 
 def init_db(db):
+    for t in taglist:
+        for tag in taglist.get(t).split('\n'):
+            if tag:
+                db.session.add(Tag(name=tag, type=t))
+    
     db.session.add(Category(name='头条'))
     
     cate = Category(name='新闻动态')
     db.session.add(cate)
     db.session.add(Category(name='公告'))
     db.session.add(Category(name='对话设计师'))
-    #db.session.add(ResellerCategory('直营店'))
-    #db.session.add(ResellerCategory('批发'))
-    #db.session.add(ResellerCategory('FGA'))
-    #db.session.add(ResellerCategory('网络'))
+    db.session.add(ResellerCategory(name='直营店'))
+    db.session.add(ResellerCategory(name='批发'))
+    db.session.add(ResellerCategory(name='FGA'))
+    db.session.add(ResellerCategory(name='网络'))
     
     #db.session.commit()
     

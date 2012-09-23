@@ -44,6 +44,16 @@ blockquote{
     font-size: 14px;
 }
 
+.nav .dropdown-toggle .caret{
+    border-top-color:#D74040;
+    border-bottom-color:#D74040;
+}
+
+.nav .dropdown-toggle:hover .caret {
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+}
+
 .navbar .navbar-inner #user-area a{
     color: #999;
 }

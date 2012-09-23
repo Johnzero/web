@@ -1,0 +1,1 @@
+from .views import products as bp_products
