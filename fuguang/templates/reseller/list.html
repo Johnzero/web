@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+
+{% block title %}{{ category or '销售渠道' }}{% endblock %}
+{% block body %}
+    <div class="middle-banner">
+        <div class="container">
+            <h1 class="page-title yahei">{{ category or '销售渠道' }}</h1>
+        </div>
+        <div class="container content">
+            <div class="row-fluid">
+                <div class="span8 left-col">
+                    {% for reseller in pagination %}
+                    <div class="service-item">
+                        <h5><i class="service-title"></i><a href="{{ url_for('resellers.view', id=reseller.id) }}">{{ reseller.name }}</a></h5>
+                        <div class="service-desc">
+                            {{ reseller.excerpt or '没有介绍' }}
+                        </div>
+                        <div class="service-extra">
+                        </div>
+                        <div class="service-tool">
+                            {% if current_user.is_editor %}
+                            <a href="{{ url_for('resellers.edit', id=reseller.id) }}"><i class="icon-edit"></i>编辑</a> 
+                            <a href="{{ url_for('resellers.delete', id=reseller.id) }}" class="need-confirm"><i class="icon-trash"></i>删除</a> 
+                            {% endif %}
+                            <a href="{{ url_for('resellers.view', id=reseller.id) }}"><i class="icon-star"></i>详细介绍</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% if not pagination %}还没有经销商{% endif %}
+                    <hr style="clear: both;"/>
+                    <div class="paginator">
+                        {{ pagination.pager('~4~') }}
+                    </div>
+                </div>
+                <div class="span4 right-col">
+                    <ul class="nav nav-list">
+                        <li class="nav-header yahei">销售渠道</li>
+                        {% for cate in categories %}
+                        <li{% if category and category == cate %} class="active"{% endif %}><i></i>
+                            <a href="{{ url_for('resellers.category', id=cate.id, page=1) }}">{{ cate.name }}</a>
+                        </li>
+                        {% endfor %}
+                        {% if current_user.is_editor %}
+                        <li><i></i><a href="{{ url_for('resellers.create') }}">添加经销商</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <form class="form-search" method="GET" action=".">
+                        <input type="text" class="input-medium search-query" name="keyword">
+                        <button type="submit" class="btn">搜索</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% include 'system_static.html' %}
+    
+{% endblock body %}

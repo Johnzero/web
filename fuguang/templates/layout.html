@@ -32,7 +32,11 @@
                 </div>
                 <div class="span5" id="user-area">
                         {% if current_user.is_authenticated() %}
-                        欢迎: {{ current_user }} | <a href="{{ url_for('users.logout') }}" class="yahei">退出</a>
+                        欢迎:
+                        {{ current_user }}{% if current_user.is_admin %}
+                        | <a href="{{ url_for('users.list') }}" class="yahei">用户管理</a>
+                        {% endif %}
+                        | <a href="{{ url_for('users.logout') }}" class="yahei">退出</a>
                         {% else %}
                         <a href="" class="yahei">注册</a> | <a href="{{ url_for('users.login') }}" class="yahei">登录</a>
                         {% endif %}
@@ -54,7 +58,7 @@
                 <div class="span9">
                     <ul class="nav nav-pills main-menu">
                         <li {% if 'frontend.index' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('frontend.index') }}">首页</a></li>
-                        <li class="dropdown{% if request.endpoint in ['page.about', 'news'] %} active{% endif %}">
+                        <li class="dropdown{% if request.endpoint in ['page.about', 'news.list'] %} active{% endif %}">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 富光
                                 <b class="caret"></b>
@@ -83,7 +87,7 @@
                             </ul>
                         </li>
                         <li {% if 'product' in request.endpoint %} class="active"{% endif %}><a href="">产品中心</a> </li>
-                        <li {% if 'sales' in request.endpoint %} class="active"{% endif %}><a href="">销售网络</a> </li>
+                        <li {% if 'resellers' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('resellers.list') }}">销售渠道</a> </li>
                         <li {% if 'service' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page.service') }}">客户服务</a> </li>
                       </ul>
                 </div>
@@ -113,7 +117,7 @@
                 <div class="span8">
                     <a href="{{ url_for('page.about', code='fuguang') }}" class="yahei">关于富光</a>
                     <a href="" class="yahei">产品中心</a>
-                    <a href="" class="yahei">销售网络</a>
+                    <a href="{{ url_for('resellers.list') }}" class="yahei">销售网络</a>
                     <a href="" class="yahei">网站地图</a>
                     <a href="" class="yahei">帮助</a>
                 </div>

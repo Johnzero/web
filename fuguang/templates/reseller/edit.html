@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 
-{% block title %} 新增新闻{% endblock %}
+{% block title %} 添加/修改经销商 {% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='lib/redactor/redactor.css') }}" />
@@ -14,7 +14,7 @@
     $(document).ready(
         function()
         {
-            $('textarea#content').redactor(
+            $('textarea#description').redactor(
                 {
                     imageUpload: '/rd/upload',
                     imageGetJson: '/rd/upload',
@@ -31,27 +31,38 @@
 
 <div class="middle-banner">
     <div class="container">
-        <h1 class="page-title yahei">新增新闻</h1>
+        <h1 class="page-title yahei">添加/修改经销商 </h1>
     </div>
     <div class="container content">
         <div class="row-fluid">
             <div class="left-col">
-                <form method="POST" action="{{ url_for('news.news_create') }}" enctype="multipart/form-data">
+                <form method="POST" action="{% if mode =='create'%}{{ url_for('resellers.create') }}{% else %}{{ url_for('resellers.edit', id=reseller.id) }}{% endif %}">
                     {{ form.hidden_tag() }}
-                    {{ form.title.label }}
-                    {{ form.title }}
+                    {{ form.name.label }}
+                    {{ form.name }}
+                    {{ form.address.label }}
+                    {{ form.address }}
+                    {{ form.telephone.label }}
+                    {{ form.telephone }}
+                    {{ form.geo.label }}
+                    {{ form.geo }}
+                    {{ form.website.label }}
+                    {{ form.website }}
                     {{ form.excerpt.label }}
                     {{ form.excerpt }}
                     {{ form.category.label }}
                     {{ form.category }}
-                    {{ form.content.label }}
-                    {{ form.content|safe }}
-                    {{ form.upload.label }}
-                    <span class="help-block">请使用580*150的图.</span>
-                    {{ form.upload }}
+                    {{ form.description.label }}
+                    {{ form.description|safe }}
+                    {{ form.user.label }}
+                    {{ form.user }}
+                    {{ form.certified.label }}
+                    {{ form.certified }}
+                    {{ form.recomm.label }}
+                    {{ form.recomm }}
                     <hr/>
                     <input type="submit" class="btn btn-primary" value="保存"/>
-                    <a href="{{ url_for('news.list') }}" class="btn btn-warning">取消</a>
+                    <a href="{{ url_for('resellers.list') }}" class="btn btn-warning">取消</a>
                 </form>
             </div>
         </div>

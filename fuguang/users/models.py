@@ -42,7 +42,7 @@ class User(db.Model, UserMixin):
     
     # user roles
     MEMBER = 100
-    DEALER = 200
+    RESELLER = 200
     EDITOR = 300
     ADMIN = 400
     
@@ -68,7 +68,6 @@ class User(db.Model, UserMixin):
     
     def is_active(self):
         return self.active
-    
 
     def _get_password(self):
         return self._password
@@ -107,8 +106,8 @@ class User(db.Model, UserMixin):
         return self.role >= self.DEALER
 
     @property
-    def is_dealer(self):
-        return self.role >= self.DEALER
+    def is_reseller(self):
+        return self.role >= self.RESELLER
 
     def check_openid(self, openid):
         if self.openid is None:

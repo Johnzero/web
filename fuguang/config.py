@@ -46,10 +46,12 @@ class DefaultConfig(object):
     
     UPLOAD_FOLDER = get_upload_folder()
     EDITOR_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'editor')
-    PRODUCT_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'product')
+    PRODUCT_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'products')
     NEWS_UPLOAD_FOLDER = os.path.join(get_upload_folder(), 'news')
+    RESELLER_UPLOAD_FORLDER = os.path.join(get_upload_folder(), 'resellers')
     
-    NEWS_PER_PAGE = 5
+    NEWS_PER_PAGE = 6
+    RESELLER_PER_PAGE = 8
     
     MAX_CONTENT_LENGTH = 2 * 1024 * 1024
     

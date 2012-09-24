@@ -63,6 +63,23 @@ FGA
 """
 }
 
+resellers = """
+合肥长江路店
+合肥国购店
+合肥新亚恒丰店
+合肥新都会家乐福店
+马鞍山家乐福店
+马鞍山大润发店
+六安新都会店
+六安西都店
+南京大行宫家乐福店
+南京大桥家乐福店
+南京长虹家乐福店
+淮南家乐福店
+合肥大润发翡翠路店
+合肥新都会店
+"""
+
 
 def init_db(db):
     for t in taglist:
@@ -76,12 +93,15 @@ def init_db(db):
     db.session.add(cate)
     db.session.add(Category(name='公告'))
     db.session.add(Category(name='对话设计师'))
-    db.session.add(ResellerCategory(name='直营店'))
-    db.session.add(ResellerCategory(name='批发'))
-    db.session.add(ResellerCategory(name='FGA'))
-    db.session.add(ResellerCategory(name='网络'))
+    rc = ResellerCategory(name='直营店')
+    db.session.add(rc)
+    db.session.add(ResellerCategory(name='批发市场'))
+    db.session.add(ResellerCategory(name='KA卖场'))
+    db.session.add(ResellerCategory(name='网络平台'))
     
-    #db.session.commit()
+    for r in resellers.split('\n'):
+        if r:
+            db.session.add(Reseller(name=r, category=rc, certified=True, excerpt=r))
     
     user = User(username='admin',
                 email='fg@fuguang.cn',

@@ -32,7 +32,7 @@ def list(page=None):
                                url=url_for, endpoint='news.list')
     return render_template('news/list.html', categories=categories, pagination=pagination)
 
-@news.route("/category/<int:id>/page/<int:page>", defaults={'page':1})
+@news.route("/category/<int:id>-<int:page>.asp")
 def category(id, page):
     category = Category.query.get_or_404(id)
     categories = Category.query.all()
@@ -44,7 +44,7 @@ def category(id, page):
     
     return render_template('news/list.html', categories=categories, pagination=pagination, category=category)
 
-@news.route("/view/<int:id>")
+@news.route("/view/<int:id>.asp")
 def view(id):
     news = News.query.get_or_404(id)
     categories = Category.query.all()
@@ -81,7 +81,7 @@ def save_file(file):
     
     return '/'.join([folder_name, filename])
 
-@news.route("/create", methods=["GET", "POST"])
+@news.route("/create.asp", methods=["GET", "POST"])
 def news_create():
     form = NewsForm(request.form)
 
@@ -101,7 +101,7 @@ def news_create():
     
     return render_template("news/news_create.html", form=form)
 
-@news.route("/edit/<int:id>", methods=["GET", "POST"])
+@news.route("/edit/<int:id>.asp", methods=["GET", "POST"])
 def news_edit(id):
     news = News.query.get_or_404(id)
     form = NewsForm(request.form, news)
@@ -120,7 +120,7 @@ def news_edit(id):
     return render_template("news/news_edit.html", form=form, news=news)
 
 
-@news.route("/delete/<int:id>")
+@news.route("/delete/<int:id>.asp")
 def news_delete(id):
     news = News.query.get_or_404(id)
     flash('已经删除新闻 %s。' % news.title , 'info')

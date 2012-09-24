@@ -515,7 +515,9 @@ blockquote{
     margin-bottom: 40px;
 }
 
-
+.form-search{
+    margin: 20px 0 20px 20px;
+}
 
 .middle-banner .content .left-col .news-item hr{
     margin: 5px;
@@ -550,7 +552,6 @@ blockquote{
 }
 
 
-
 .paginator a{
     background-color: #F2F2F2;
     padding: 4px 8px 2px 8px;
@@ -570,4 +571,62 @@ blockquote{
 .paginator span.pager_curpage{
     background-color: #D74040;
     color: white;
+}
+
+/*
+ * service
+ */
+
+.service-item{
+    float: left;
+    min-height: 200px;
+    width: 284px;
+    border: solid 1px #FCFCFC;
+    border-top: solid 3px #FCFCFC;
+    position: relative;
+}
+
+.service-item i.service-title{
+    display: inline-block;
+    background: url('../images/service-item-bg.png') no-repeat;
+    width: 41px;
+    height: 41px;
+    margin: 0 10px 0 10px;
+    vertical-align: middle;
+}
+
+.service-item:hover{
+    border-top: solid 3px #D74040;
+    background-color: #FCFCFC;
+}
+
+.service-item:hover i.service-title{
+    background-position: -42px 0;
+}
+
+.service-item .service-desc{
+    color: #999;
+    margin: 20px;
+}
+
+.service-item .service-tool{
+    font-size: 12px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.service-item .service-tool a{
+    margin-left: 10px;
+}
+
+.service-item .service-extra{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+.service-item .service-extra span{
+    font-size: 12px;
+    color: green;
 }

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+
+{% block title %}{{ reseller.name }}{% endblock %}
+{% block body %}
+    <div class="middle-banner">
+        <div class="container">
+            <h1 class="page-title yahei">{{ reseller.name}}</h1>
+        </div>
+        <div class="container content">
+            <div class="row-fluid">
+                <div class="span8 left-col">
+                    <div class="news-item">
+                        <h5><i>{{ reseller.category }}</i> <a href="">{{ reseller.name }}</a></h5>
+                        <blockquote>
+                            {{ reseller.excerpt }}
+                            <hr/>
+                            <address>
+                                {{ reseller.address or '未输入' }}<br/>
+                                {{ reseller.telephone or '未输入' }}
+                            </address>
+                        </blockquote>
+                        <div class="news-content">{{ (reseller.description or '没有介绍')|safe }}</div>
+                        <hr/>
+                        <div class="desc">
+                            <div class="pull-right news-tool">
+                                <a href="{{ url_for('resellers.edit', id=reseller.id) }}"><i class="icon-edit"></i>编辑</a> 
+                                <a href="{{ url_for('resellers.delete', id=reseller.id) }}" class="need-confirm"><i class="icon-trash"></i>删除</a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4 right-col">
+                    <ul class="nav nav-list">
+                        <li class="nav-header yahei">销售渠道</li>
+                        {% for cate in categories %}
+                        <li{% if reseller.category == cate %} class="active"{% endif %}><i></i>
+                            <a href="{{ url_for('resellers.category', id=cate.id, page=1) }}">{{ cate.name }}</a>
+                        </li>
+                        {% endfor %}
+                        {% if current_user.is_editor %}
+                        <li><i></i><a href="">添加经销商</a></li>
+                        {% endif %}
+                    </ul>
+                    
+                    {% include "page/right-tab.html" %}
+                    
+                    {% include "fg_address.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    {% include 'system_static.html' %}
+    
+{% endblock body %}

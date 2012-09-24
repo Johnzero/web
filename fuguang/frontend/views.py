@@ -16,7 +16,5 @@ frontend = Blueprint('frontend', __name__, url_prefix='/')
 
 @frontend.route("/")
 def index():
-    
-    dialog = Category.query.filter_by(name=u'对话设计师').first().news_list[0]
-
-    return render_template('index.html', dialog=dialog)
+    dialogs = Category.query.filter_by(name=u'对话设计师').first().news_list
+    return render_template('index.html', dialog=(dialogs.count()>0 and dialogs[0] or None))

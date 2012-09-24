@@ -32,60 +32,12 @@
                     
                     {% include "page/right-tab.html" %}
                     
-                    <h4 class="yahei">公司地址</h4>
-                    <hr/>
-                    <address>
-                        <strong>安徽省富光实业股份有限公司</strong><br/>
-                        安徽省，合肥市，肥西县<br/>
-                        三河镇北街169号 231221<br/>
-                        <abbr title="客户服务">客服:</abbr> 400 881 7598<br/>
-                        <abbr title="电话">业务电话:</abbr> 0551 8751888<hr/>
-                        <abbr title="邮箱">邮箱:</abbr><a href="mailto:fg@fuguang.cn">fg@fuguang.cn</a><br/>
-                        <abbr title="新浪微博">新浪微博:</abbr><a href="http://e.weibo.com/ahfg" target="_blank">@富光实业股份有限公司</a><br/>
-                        <abbr title="微信">微信:</abbr> 富光实业股份有限公司<br/>
-                    </address>
-                    
-                    <hr/>
-                    <iframe width="280" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://ditu.google.cn/?ie=UTF8&amp;hq=&amp;hnear=%E5%AE%89%E5%BE%BD%E7%9C%81%E5%90%88%E8%82%A5%E5%B8%82&amp;t=m&amp;brcurrent=3,0x35cb61566b4a8d77:0x75e40b2f9e452e2,1,0x35cb640ef207cf9d:0xdc151173f2c33299%3B5,0,1&amp;ll=31.508857,117.252512&amp;spn=0.0008,0.000805&amp;z=19&amp;iwloc=lyrftr:m,5013668973772800451,31.508692,117.25251&amp;output=embed"></iframe><br /><small><a href="http://ditu.google.cn/?ie=UTF8&amp;hq=&amp;hnear=%E5%AE%89%E5%BE%BD%E7%9C%81%E5%90%88%E8%82%A5%E5%B8%82&amp;t=m&amp;brcurrent=3,0x35cb61566b4a8d77:0x75e40b2f9e452e2,1,0x35cb640ef207cf9d:0xdc151173f2c33299%3B5,0,1&amp;ll=31.508857,117.252512&amp;spn=0.0008,0.000805&amp;z=19&amp;iwloc=lyrftr:m,5013668973772800451,31.508692,117.25251&amp;source=embed" style="color:#0000FF;text-align:left">查看大图</a></small>
+                    {% include "fg_address.html" %}
                 </div>
             </div>
         </div>
     </div>
     
-    
-    <div class="system">
-        <div class="container border-line">
-            <div class="row-fluid">
-                <div class="span4">
-                    <h4 class="yahei"><cufon class="cufon cufon-canvas" alt="邮箱登录" style="width: 73px; height: 18px;"><canvas width="76" height="20" style="width: 76px; height: 20px; top: -1px; left: -2px;"></canvas><cufontext>邮箱登录</cufontext></cufon></h4>
-                    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript" src="http://exmail.qq.com/zh_CN/htmledition/js_biz/outerlogin.js" charset="gb18030"></script>
-                    <div id="divLoginpanelHor"><div class="bizmail_LoginBox">
-                    <form name="form1" action="https://exmail.qq.com/cgi-bin/login" target="_blank" method="post" onsubmit="return checkInput()">
-                        <label class="control-label" for="uin">用户名:</label>
-                        <input type="text" placeholder="用户名" id="uin" name="uin">
-                        <label class="control-label" for="password">密码:</label>
-                        <input type="password" id="password" placeholder="密码" name="pwd">
-                        <hr>
-                        <button type="submit" class="btn">登录</button>
-                        <a href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&amp;t=bizmail_orz" target="_blank">忘记密码？</a>
-                        <input type="hidden" name="firstlogin" value="false">
-                        <input type="hidden" name="errtemplate" value="dm_loginpage">
-                        <input type="hidden" name="aliastype" value="other">
-                        <input type="hidden" name="dmtype" value="bizmail">
-                        <input type="hidden" name="p" value="">
-                        <input type="hidden" name="domain" value="fuguang.cn">
-                      </form>
-                    </div></div>
-                </div>
-                <div class="span4">
-                    <h4 class="yahei">君子兰实业</h4>
-                    
-                </div>
-                <div class="span4">
-                    <h4 class="yahei"><cufon class="cufon cufon-canvas" alt="富光微博群" style="width: 91px; height: 18px;"><canvas width="94" height="20" style="width: 94px; height: 20px; top: -1px; left: -2px;"></canvas><cufontext>富光微博群</cufontext></cufon></h4>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'system_static.html' %}
     
 {% endblock body %}
