@@ -10,40 +10,44 @@
         <div class="container content">
             <div class="row-fluid">
                 <div class="span8 left-col">
-                    {% for news in pagination %}
-                    <div class="news-item">
-                        <img src="{{ news.get_cover() }}" class="img-polaroid"/>
-                        <h5><i>{{ news.category }}</i> <a href="{{ url_for('news.view', id=news.id) }}">{{ news.title }}</a></h5>
-                        <div class="news-content">{{ news.excerpt }}</div>
-                        <hr/>
-                        <div class="desc">
-                            <a href=""><i class="icon-user"></i>{{ news.user }}</a>
-                            <i class="icon-calendar"></i>{{ news.created|timesince }}
-                            <div class="pull-right news-tool">
-                                <a href="{{ url_for('news.news_edit', id=news.id) }}"><i class="icon-edit"></i>编辑</a> 
-                                <a href="{{ url_for('news.news_delete', id=news.id) }}" class="need-confirm"><i class="icon-trash"></i>删除</a> 
-                                <a href="{{ url_for('news.view', id=news.id) }}">详细内容<i class="icon-share-alt"></i></a>
+                    <div class="main-content">
+                        {% for news in pagination %}
+                        <div class="news-item">
+                            <img src="{{ news.get_cover() }}" class="img-polaroid"/>
+                            <h5><i>{{ news.category }}</i> <a href="{{ url_for('news.view', id=news.id) }}">{{ news.title }}</a></h5>
+                            <div class="news-content">{{ news.excerpt }}</div>
+                            <hr/>
+                            <div class="desc">
+                                <a href=""><i class="icon-user"></i>{{ news.user }}</a>
+                                <i class="icon-calendar"></i>{{ news.created|timesince }}
+                                <div class="pull-right news-tool">
+                                    <a href="{{ url_for('news.news_edit', id=news.id) }}"><i class="icon-edit"></i>编辑</a> 
+                                    <a href="{{ url_for('news.news_delete', id=news.id) }}" class="need-confirm"><i class="icon-trash"></i>删除</a> 
+                                    <a href="{{ url_for('news.view', id=news.id) }}">详细内容<i class="icon-share-alt"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {% endfor %}
-                    {% if not pagination %}还没有新闻{% endif %}
-                    <hr/>
-                    <div class="paginator">
-                        {{ pagination.pager('~4~') }}
+                        {% endfor %}
+                        {% if not pagination %}还没有新闻{% endif %}
+                        <hr/>
+                        <div class="paginator">
+                            {{ pagination.pager('~4~') }}
+                        </div>
                     </div>
                 </div>
                 <div class="span4 right-col">
-                    {% include "news/category.html" %}
-                    
-                    <form class="form-search" method="GET" action=".">
-                        <input type="text" class="input-medium search-query" name="keyword">
-                        <button type="submit" class="btn">搜索</button>
-                    </form>
-                    
-                    {% include "page/right-tab.html" %}
-                    
-                    {% include "fg_address.html" %}
+                    <div class="right-content">
+                        {% include "news/category.html" %}
+                        
+                        <form class="form-search" method="GET" action=".">
+                            <input type="text" class="input-medium search-query" name="keyword">
+                            <button type="submit" class="btn">搜索</button>
+                        </form>
+                        
+                        {% include "page/right-tab.html" %}
+                        
+                        {% include "fg_address.html" %}
+                    </div>
                 </div>
             </div>
         </div>

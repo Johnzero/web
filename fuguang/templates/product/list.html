@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+
+{% block title %}产品中心{% endblock %}
+{% block body %}
+    <div class="middle-banner">
+        <div class="container">
+            <h1 class="page-title yahei">产品中心</h1>
+        </div>
+        <div class="container content product-main">
+            <div class="row-fluid">
+                <div class="span12" id="product-filter">
+                    <a href="#" class="btn" rel="popover" data-placement="right" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">材质</a>
+                    <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">适用人群</a>
+                    <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">场景</a>
+                    <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">容量</a>
+                    <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">颜色</a>
+                    <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">参考价格</a>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <div class="span12">
+                    {% for product in pagination %}
+                    <div class="product-item thumbnail">
+                        <a href="#"><img src="http://placekitten.com/280/180"/></a>
+                        <div class="caption">
+                            <h5>{{ product.name }}{% for tag in product.meterials %}{{ tag.name }}{% endfor %}</h5>
+                            {% if product.model %}<p>{{ product.model }}</p>{% endif %}
+                            <p>{% for tag in product.colors %}{{ tag.name }},{% endfor %}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <hr style="clear:both;"/>
+                    <div class="paginator"> 
+                        {{ pagination.pager('~4~') }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    
+{% endblock body %}

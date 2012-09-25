@@ -10,29 +10,31 @@
         <div class="container content">
             <div class="row-fluid">
                 <div class="span8 left-col">
-                    <img src="http://placekitten.com/580/200" class="img-polaroid"/>
-                    <hr/>
-                    <div>
-                    {% autoescape false %}
-                    {{ page.content }}
-                    {% endautoescape %}
+                    <div class="main-content">
+                        <img src="http://placekitten.com/580/200" class="img-polaroid"/>
+                        <hr/>
+                        {% autoescape false %}
+                        {{ page.content }}
+                        {% endautoescape %}
                     </div>
                 </div>
                 <div class="span4 right-col">
-                    <ul class="nav nav-list">
-                        <li class="nav-header yahei">关于富光</li>
-                        {% for page in object.query.filter_by(type='about') %}
-                        <li{% if page.code in request.path and 'page.about' == request.endpoint %} class="active"{% endif %}><i></i><a href="{{ url_for('page.about', code=page.code) }}">{{ page.title }}</a></li>
-                        {% endfor %}
-                        <li><i></i><a href="{{ url_for('news.list') }}">新闻动态</a></li>
-                        {% if current_user.is_editor %}
-                        <li><i></i><a href="{{ url_for('page.edit', id=page.id) }}">编辑本页</a></li>
-                        {% endif %}
-                    </ul>
-                    
-                    {% include "page/right-tab.html" %}
-                    
-                    {% include "fg_address.html" %}
+                    <div class="right-content">
+                        <ul class="nav nav-list">
+                            <li class="nav-header yahei">关于富光</li>
+                            {% for page in object.query.filter_by(type='about') %}
+                            <li{% if page.code in request.path and 'page.about' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page.about', code=page.code) }}"><i></i>{{ page.title }}</a></li>
+                            {% endfor %}
+                            <li><i></i><a href="{{ url_for('news.list') }}">新闻动态</a></li>
+                            {% if current_user.is_editor %}
+                            <li><i></i><a href="{{ url_for('page.edit', id=page.id) }}">编辑本页</a></li>
+                            {% endif %}
+                        </ul>
+                        
+                        {% include "page/right-tab.html" %}
+                        
+                        {% include "fg_address.html" %}
+                    </div>
                 </div>
             </div>
         </div>

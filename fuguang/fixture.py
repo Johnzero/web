@@ -11,23 +11,76 @@ from fuguang.users.models import User
 from fuguang.pages.models import Page
 from fuguang.news.models import Category, News
 from fuguang.reseller.models import Reseller, ResellerCategory
-from fuguang.product.models import Tag
+from fuguang.product.models import Tag, Product
 
+import xlrd
 
-taglist = {'brand' : """
+def init_products(db):
+    book = xlrd.open_workbook('products.xls')
+    sh = book.sheet_by_index(0)
+    
+    product_list = dict()
+    for row in range(sh.nrows):
+        meterial = sh.cell(row, 0).value.strip()
+        p_name = sh.cell(row, 1).value.strip()
+        code = sh.cell(row, 2).value.strip()
+        color = sh.cell(row, 3).value.strip()
+        
+        if not product_list.has_key(p_name):
+            product = Product(name=p_name, model=code, brand='富光', description='')
+            
+            mt = Tag.query.filter_by(name=meterial, type='meterial').first()
+            if mt:
+                product.meterials.append( mt )
+            else:
+                print p_name, 'no meterial.'
+            
+            product_list[p_name] = product
+        else:
+            product = product_list.get(p_name)
+        
+        color = Tag.query.filter_by(name=color, type='color').first()
+        if color:
+            product.colors.append(color)
+        else:
+            print p_name, 'no color'
+    
+    for name in product_list:
+        db.session.add(product_list.get(name))
+ 
+    db.session.commit()
+
+"""
 富光
 FGA
 茶马士
 拾喜
-""",
-'meterial' : """
+
 玻璃
 水晶玻璃
 不锈钢
-塑料
+真空
+食品级PC
+食品级PP
 生态骨瓷
 生态紫砂
 钛合金
+塑胶
+"""
+
+taglist = {
+'meterial':"""
+玻璃
+水晶玻璃
+不锈钢
+食品级PC
+食品级PP
+生态骨瓷
+生态紫砂
+钛合金
+塑胶
+安全帽
+真空
 """,
 'scenario':"""
 办公室
@@ -36,7 +89,7 @@ FGA
 校园
 车用
 """,
-'group':"""
+'applicable':"""
 中小学生
 大学生
 白领
@@ -60,6 +113,145 @@ FGA
 400+
 """,
 'color':"""
+兰
+茶
+兰
+透明花瓶
+黄
+粉红
+白
+蓝绿
+军绿
+绿
+紫
+浅兰
+黑紫
+浅紫
+蓝色
+绿色
+混
+混装
+兰色
+淡黄色
+黄色
+粉红色
+桔
+粉色
+紫色
+玫红色
+男生
+女生
+玫红
+黄绿
+蓝
+黑紫色
+混 
+淡蓝
+淡绿
+灰色
+白色
+草绿
+深灰色
+透明蓝
+桔色
+咖啡色
+黑色
+灰白
+橙色
+青色
+墨绿
+墨紫
+棕色
+红色
+橘红色
+粉
+深灰
+海蓝
+浅灰
+黑
+咖啡
+茶色
+字
+圈
+米灰色
+灰兰色
+杏灰
+桔红
+土黄
+红
+淡草绿
+深蓝色
+浅蓝色
+浅咖啡
+灰绿色
+淡粉
+米黄
+米
+闪蓝色
+浅红色
+闪黄色
+闪灰色
+钛金
+本
+葡萄紫
+亮银咖啡
+闪深灰
+米金
+紫砂
+橘黄
+本色
+瓷白
+中灰
+果蔬绿
+墨蓝
+紫红
+深绿
+蓝灰
+闪金
+墨兰
+炫红
+陶瓷白
+银铠甲
+黑金刚
+亮银兰
+闪银
+闪黑
+闪紫红
+亮银蓝
+灰黑
+珠光白
+大红色
+大红
+浅亮兰
+迷彩
+米金色
+透明红
+海蓝
+绿迷彩
+淡黄
+宝石纹
+虎纹
+珠光银
+闪兰
+珠光蓝
+米黄色
+闪蓝
+闪绿
+墨蓝色
+闪银色
+珠光紫
+深海兰
+果绿
+黑底
+白底
+纳米
+滤叶
+亮银黑
+宝兰
+有滤网
+富光白
+橙
+蓝绿色
 """
 }
 

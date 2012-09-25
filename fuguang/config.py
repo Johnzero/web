@@ -52,6 +52,7 @@ class DefaultConfig(object):
     
     NEWS_PER_PAGE = 6
     RESELLER_PER_PAGE = 8
+    PRODUCT_PER_PAGE = 12
     
     MAX_CONTENT_LENGTH = 2 * 1024 * 1024
     

@@ -81,6 +81,12 @@ def initdb():
     init_db(db)
 
 @manager.command
+def initproduct():
+    from fuguang.fixture import init_products
+    
+    init_products(db)
+
+@manager.command
 def createall():
     "Creates database tables"
     

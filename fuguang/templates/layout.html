@@ -10,7 +10,9 @@
 
     <link href="/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/css/style.css" rel="stylesheet"/>
-    
+    <!--[if lt IE 8]>
+    <link href="/static/css/ie.css" rel="stylesheet"/>
+    <![endif]-->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -71,7 +73,7 @@
                                 <li class="divider"></li>
                                 <li{% if 'junzilan' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page.about', code='junzilan') }}">君子兰</a></li>
                                 <li class="divider"></li>
-                                <li{% if 'news' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('news.list') }}">新闻动态</a></li>
+                                <li{% if 'news.list' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('news.list') }}">新闻动态</a></li>
                             </ul>
                         </li>
                         <li class="dropdown{% if 'page.brand' == request.endpoint %} active{% endif %}">
@@ -86,8 +88,8 @@
                                 <li{% if 'bestjoy' in request.path and 'page.brand' == request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page.brand', code='bestjoy') }}">拾喜</a></li>
                             </ul>
                         </li>
-                        <li {% if 'product' in request.endpoint %} class="active"{% endif %}><a href="">产品中心</a> </li>
-                        <li {% if 'resellers' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('resellers.list') }}">销售渠道</a> </li>
+                        <li {% if 'products.list' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('products.list') }}">产品中心</a> </li>
+                        <li {% if 'resellers.list' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('resellers.list') }}">销售渠道</a> </li>
                         <li {% if 'service' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page.service') }}">客户服务</a> </li>
                       </ul>
                 </div>
@@ -142,9 +144,7 @@
     <script src="/static/lib/cufon/700.font.js"></script>
     <script type="text/javascript">
         Cufon.replace('.main-menu li a,.yahei');
-        $('.thumbnails').tooltip({
-            selector: "a[rel=tooltip]"
-        })
+
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-34886154-1']);
         _gaq.push(['_setDomainName', 'fuguang.cn']);
@@ -158,6 +158,10 @@
           $('a.need-confirm').click(function(){
                 return confirm('确认这个操作?');
            });
+          
+          $('.thumbnails').tooltip({
+            selector: "a[rel=tooltip]"
+        });
           
         })();
     </script>

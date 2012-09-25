@@ -437,7 +437,7 @@ blockquote{
 .middle-banner .content .right-col .nav-list li i{
     float: left;
     display: inline-block;
-    margin: 10px 10px 6px 0;
+    margin: 8px 10px 0 0;
     height: 6px;
     width: 4px;
     background: url('../images/list-arrow.png') no-repeat 0 0;
@@ -629,4 +629,19 @@ blockquote{
 .service-item .service-extra span{
     font-size: 12px;
     color: green;
+}
+
+/**
+ *product
+ */
+
+.middle-banner .product-main{
+    padding: 30px;
+}
+
+.product-item{
+    width: 280px;
+    float: left;
+    margin: 15px;
+    min-height: 300px;
 }
