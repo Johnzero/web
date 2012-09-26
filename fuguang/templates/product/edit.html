@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+
+{% block title %} 修改产品 {{ product.name }} {% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lib/redactor/redactor.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/select2.css') }}" />
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='lib/redactor/langs/zh_CN.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/redactor/redactor.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/select2/select2.min.js') }}"></script>
+<script type="text/javascript"> 
+    $(document).ready(
+        function()
+        {
+            $('textarea#description').redactor(
+                {
+                    imageUpload: '/rd/upload',
+                    imageGetJson: '/rd/upload',
+                    lang: 'zh_cn'
+                }
+            );
+            
+            $('#meterials,#colors,#scenarios,#applicables').select2();
+        }
+    );
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="middle-banner">
+    <div class="container">
+        <h1 class="page-title yahei"> 修改产品 {{ product.name }}</h1>
+    </div>
+    <div class="container content">
+        <div class="row-fluid">
+            <div class="left-col">
+                <form method="POST" action="{{ url_for('products.edit', id=product.id) }}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    {{ form.name.label }}
+                    {{ form.name }}
+                    {{ form.code.label }}
+                    {{ form.code }}
+                    {{ form.brand.label }}
+                    {{ form.brand }}
+                    {{ form.excerpt.label }}
+                    {{ form.excerpt }}
+                    {{ form.description.label }}
+                    {{ form.description }}
+                    {{ form.capacity.label }}
+                    {{ form.capacity }}
+                    {{ form.price.label }}
+                    {{ form.price }}
+                    {{ form.meterials.label }}
+                    {{ form.meterials }}
+                    {{ form.colors.label }}
+                    {{ form.colors }}
+                    {{ form.scenarios.label }}
+                    {{ form.scenarios }}
+                    {{ form.applicables.label }}
+                    {{ form.applicables }}
+                    
+                    {{ form.upload.label }}
+                    {{ form.upload }}
+                    <span class="help-block">请使用大于580*430的图.</span>
+                    <hr/>
+                    <input type="submit" class="btn btn-primary" value="保存"/>
+                    <a href="{{ url_for('products.list') }}" class="btn btn-warning">取消</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

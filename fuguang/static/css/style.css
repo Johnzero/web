@@ -209,7 +209,15 @@ blockquote{
 }
 
 .products .product-list{
-    margin: 30px;
+    
+}
+
+.products .product-list .span4{
+    padding: 8px;
+}
+
+.misc .quote blockquote{
+    border: none;
 }
 
 .fg-pager{
@@ -576,11 +584,15 @@ blockquote{
 /*
  * service
  */
+.middle-banner .service-main .left-col{
+    padding: 10px 0 10px 10px;
+}
 
 .service-item{
     float: left;
     min-height: 200px;
-    width: 284px;
+    width: 280px;
+    margin: 10px;
     border: solid 1px #FCFCFC;
     border-top: solid 3px #FCFCFC;
     position: relative;
@@ -631,6 +643,48 @@ blockquote{
     color: green;
 }
 
+/*
+ * share
+ */
+.share
+{
+    background:url("../images/share.gif") no-repeat scroll 0 0 transparent;
+    height:18px;
+    width:18px;
+    margin-right:0px !Important;
+    display:inline-block;
+}
+
+.share_email
+{
+    background-position:0 -30px;
+}
+
+.share_kaixin
+{
+    background-position:0 -60px;
+}
+
+.share_sina
+{
+    background-position:0 -120px;
+}
+
+.share_douban
+{
+    background-position:0 -150px;
+}
+
+.share_renren
+{
+    background-position:0 -90px;
+}
+.share_qq
+{
+    background-position:0 -180px;
+}
+
+
 /**
  *product
  */
@@ -643,5 +697,14 @@ blockquote{
     width: 280px;
     float: left;
     margin: 15px;
-    min-height: 300px;
+    min-height: 280px;
+}
+
+.product-excerpt{
+    color: #999;
+    margin: 10px;
+}
+
+.share-holder a{
+    text-decoration: none;
 }

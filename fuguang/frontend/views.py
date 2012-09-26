@@ -11,10 +11,12 @@ from flask.ext.login import login_required, fresh_login_required, current_user
 
 from fuguang.helpers import cached, keep_login_url, jsonify
 from fuguang.news.models import Category
-
+from fuguang.product.models import Product
 frontend = Blueprint('frontend', __name__, url_prefix='/')
 
 @frontend.route("/")
 def index():
     dialogs = Category.query.filter_by(name=u'对话设计师').first().news_list
-    return render_template('index.html', dialog=(dialogs.count()>0 and dialogs[0] or None))
+    products = Product.query.order_by(Product.id.desc()).limit(3)
+    
+    return render_template('index.html', dialog=(dialogs.count()>0 and dialogs[0] or None), products=products)

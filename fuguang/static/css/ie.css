@@ -23,6 +23,8 @@
     height: 200px;
 }
 
-.product-main-list{
 
+.product-item{
+    margin: 10px;
+    height: 300px;
 }

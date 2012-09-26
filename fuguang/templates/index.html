@@ -14,7 +14,7 @@
                         <div class="slide">
                             <a href="#" title="测试1"><img src="{{ url_for('static', filename='images/demo/slide2.jpg') }}" title="测试图片2测试图片2" /></a>
                             <div class="caption" style="bottom:0">
-                                <p>Happy Bokeh Thursday!</p>
+                                <p>这是一条测试新闻</p>
                             </div>
                         </div>
                         <div class="slide">
@@ -72,36 +72,18 @@
                 <a href="#" class="prev"></a><a href="#" class="next"></a>
             </div>
             <div class="row-fluid product-list">
-                <div class="span4">
-                    <img src="http://placekitten.com/250/148" class="img-polaroid"/>
-                    <div class="text">
-                        <dl>
-                            <dt>300ML时尚吸管太空杯</dt>
-                            <hr/>
-                            <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
-                        </dl>
+                {% for product in products %}
+                    <div class="span4">
+                        <a href="{{ url_for('products.view', id=product.id) }}"><img src="{{ product.get_thumb() }}"/></a>
+                        <div class="text">
+                            <dl>
+                                <dt><a href="{{ url_for('products.view', id=product.id) }}">{{ product.name }}</a></dt>
+                                <hr/>
+                                <dd>{{ product.excerpt or '暂无简介' }}</dd>
+                            </dl>
+                        </div>
                     </div>
-                </div>
-                <div class="span4">
-                    <img src="http://placekitten.com/250/148" class="img-polaroid"/>
-                    <div class="text">
-                        <dl>
-                            <dt>300ML时尚吸管太空杯</dt>
-                            <hr/>
-                            <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="span4">
-                    <img src="http://placekitten.com/250/148" class="img-polaroid"/>
-                    <div class="text">
-                        <dl>
-                            <dt>300ML时尚吸管太空杯</dt>
-                            <hr/>
-                            <dd>不变形、不爆裂、抗震防摔、不易破碎、经久耐用。杯盖密封性能极好，不漏水。无毒无味，安全可靠，便于携带，适合家庭休闲，户外旅行等活动。</dd>
-                        </dl>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

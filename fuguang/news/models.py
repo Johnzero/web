@@ -37,16 +37,16 @@ class News(db.Model):
     def get_cover(self):
         if self.cover:
             return '/static/upload/news/' + self.cover
-        return 'http://placekitten.com/580/150'
+        return 'http://flickholdr.com/580/150/cup'
     
     def get_thumb(self):
         if self.cover:
             l = self.cover.split('/')
             return '/static/upload/news/%s/thumb/%s' % (l[0], 'small-'+l[1])
-        return 'http://placekitten.com/50/50'
+        return 'http://flickholdr.com/50/50/cup'
     
     def get_midium_thumb(self):
         if self.cover:
             l = self.cover.split('/')
             return '/static/upload/news/%s/thumb/%s' % (l[0], 'midium-'+l[1])
-        return 'http://placekitten.com/260/158'
+        return 'http://flickholdr.com/260/158/'

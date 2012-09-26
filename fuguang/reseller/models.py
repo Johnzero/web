@@ -10,7 +10,7 @@ from fuguang.users.models import User
 
 class ResellerCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.Unicode(50))
     reseller_list = db.relationship('Reseller', backref='category', lazy='dynamic')
 
     def __unicode__(self):
@@ -18,15 +18,15 @@ class ResellerCategory(db.Model):
 
 class Reseller(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.Unicode(50))
     category_id = db.Column(db.Integer, db.ForeignKey('reseller_category.id'))
-    address = db.Column(db.String(200))
-    geo = db.Column(db.String(50))
-    telephone = db.Column(db.String(50))
+    address = db.Column(db.Unicode(200))
+    geo = db.Column(db.Unicode(50))
+    telephone = db.Column(db.Unicode(50))
     excerpt = db.Column(db.Text())
     description = db.Column(db.Text())
     recomm = db.Column(db.Boolean(), default=False)
-    website = db.Column(db.String(200))
+    website = db.Column(db.Unicode(200))
     certified = db.Column(db.Boolean(), default=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

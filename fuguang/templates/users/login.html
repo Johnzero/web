@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row-fluid">
-        <form method="POST" action=".">
+        <form method="POST" action="{{ url_for('users.login') }}">
             <legend>用户登录</legend>
             {{ form.hidden_tag() }}
             {{ form.next }}

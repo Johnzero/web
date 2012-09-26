@@ -35,8 +35,9 @@ product2scenario = db.Table('product_product2scenario',
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150))
-    model = db.Column(db.String(50))
+    name = db.Column(db.Unicode(150))
+    model = db.Column(db.Unicode(50))
+    excerpt = db.Column(db.Unicode(300))
     description = db.Column(db.Text())
     brand = db.Column(db.String(50))
     meterials = db.relationship('Tag', secondary=product2meterial,
@@ -54,14 +55,26 @@ class Product(db.Model):
     capacity = db.Column(db.Integer)
     price = db.Column(db.Integer)
     
-    cover = db.Column(db.String(150))
+    cover = db.Column(db.Unicode(150))
     
     def __unicode__(self):
         return self.name
 
+    def get_thumb(self):
+        if self.cover:
+            l = self.cover.split('/')
+            return '/static/upload/products/%s/thumb/%s' % (l[0], 'small-'+l[1])
+        return "http://flickholdr.com/280/148/cup"
+    
+    def get_midium_thumb(self):
+        if self.cover:
+            l = self.cover.split('/')
+            return '/static/upload/products/%s/thumb/%s' % (l[0], 'midium-'+l[1])
+        return 'http://flickholdr.com/580/430/cup'
+
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    type = db.Column(db.String(50))
+    name = db.Column(db.Unicode(50))
+    type = db.Column(db.Unicode(50))
     def __unicode__(self):
         return self.name

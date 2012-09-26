@@ -16,7 +16,7 @@ resellers = Blueprint('resellers', __name__, url_prefix='/resellers')
 
 
 @resellers.route("/")
-@resellers.route("/page/<int:page>")
+@resellers.route("/page-<int:page>")
 def list(page=None):
     page = page or 1
     categories = ResellerCategory.query.all()
@@ -28,7 +28,7 @@ def list(page=None):
     
     return render_template('reseller/list.html', categories=categories, pagination=pagination)
 
-@resellers.route("/category/<int:id>-<int:page>.asp")
+@resellers.route("/category-<int:id>-<int:page>.asp")
 def category(id, page):
     category = ResellerCategory.query.get_or_404(id)
     categories = ResellerCategory.query.all()
@@ -40,7 +40,7 @@ def category(id, page):
     return render_template('reseller/list.html', categories=categories, pagination=pagination, category=category)
 
 
-@resellers.route("/view/<int:id>.asp")
+@resellers.route("/view-<int:id>.asp")
 def view(id):
     reseller = Reseller.query.get_or_404(id)
     categories = ResellerCategory.query.all()

@@ -26,6 +26,7 @@ from fuguang.news import bp_news
 from fuguang.rd import bp_rd
 from fuguang.reseller import bp_resellers
 from fuguang.product import bp_products
+from fuguang.service import bp_service
 
 from fuguang.users.models import User
 from fuguang.news.models import News
@@ -36,7 +37,7 @@ __all__ = ["create_app"]
 DEFAULT_APP_NAME = 'fuguang'
 
 DEFAULT_MODULES = (
-    (bp_users, bp_frontend, bp_page, bp_news, bp_rd, bp_resellers, bp_products)
+    (bp_users, bp_frontend, bp_page, bp_news, bp_rd, bp_resellers, bp_products, bp_service)
 )
 
 def create_app(config=None, app_name=None, modules=None):

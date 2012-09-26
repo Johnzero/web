@@ -16,6 +16,9 @@
                     <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">容量</a>
                     <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">颜色</a>
                     <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">参考价格</a>
+                    {% if current_user.is_authenticated() and current_user.is_editor %}
+                    <a href="{{ url_for('products.create') }}" class="btn">添加产品</a>
+                    {% endif %}
                 </div>
             </div>
             
@@ -23,10 +26,10 @@
                 <div class="span12">
                     {% for product in pagination %}
                     <div class="product-item thumbnail">
-                        <a href="#"><img src="http://placekitten.com/280/180"/></a>
+                        <a href="{{ url_for('products.view', id=product.id) }}"><img src="{{ product.get_thumb() }}"/></a>
                         <div class="caption">
-                            <h5>{{ product.name }}{% for tag in product.meterials %}{{ tag.name }}{% endfor %}</h5>
-                            {% if product.model %}<p>{{ product.model }}</p>{% endif %}
+                            <h5><a href="{{ url_for('products.view', id=product.id) }}">{{ product.name }}</a> ({{ product.model or '无货号' }})</h5>
+                            <p>{% for tag in product.meterials %}{{ tag.name }},{% endfor %}</p>
                             <p>{% for tag in product.colors %}{{ tag.name }},{% endfor %}</p>
                         </div>
                     </div>

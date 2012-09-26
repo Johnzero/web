@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+
+{% block title %}{{ product.name }}{% endblock %}
+
+
+{% block body %}
+    <div class="middle-banner">
+        <div class="container">
+            <h1 class="page-title yahei">{{ product.name}}</h1>
+        </div>
+        <div class="container content">
+            <div class="row-fluid">
+                <div class="span8 left-col">
+                    <img src="{{ product.get_midium_thumb() }}" class="img-polaroid"/>
+                    <hr/>
+                    <blockquote>{{ product.excerpt or '没有简短介绍' }}</blockquote>
+                    <div class="product-excerpt">
+                        {{ product.description|safe or '没有介绍' }}
+                    </div>
+                    <div class="share-holder pull-right">
+                        <a href="#" title="把此线路分享到开心网" class="share share_kaixin">&nbsp;</a> 
+                        <a href="#" title="把此线路分享到新浪微博" class="share share_sina">&nbsp;</a> 
+                        <a href="#" title="把此线路分享到豆瓣网" class="share share_douban">&nbsp;</a> 
+                        <a href="#" title="把此线路分享到人人网" class="share share_renren">&nbsp;</a>
+                        <a href="#" title="把此线路分享到腾讯微博" class="share share_qq">&nbsp;</a>  
+                    </div>
+                </div>
+                <div class="span4 right-col">
+                    <ul class="nav nav-list">
+                        <li class="nav-header yahei">产品信息</li>
+                        <li><i></i>型号: {{ product.model or '无货号' }}</li>
+                        <li><i></i>品牌: {{ product.brand }}</li>
+                        <li><i></i>材质: {% for t in product.meterials %}{{ t.name }}, {% endfor %}</li>
+                        <li><i></i>适用: {% if product.applicables %}{% for t in product.applicables %}{{ t.name }}, {% endfor %}{% else %}适用于所有人群{% endif %}</li>
+                        {% if product.colors %}<li><i></i>颜色: {% for t in product.colors %}{{ t.name }}, {% endfor %}</li>{% endif %}
+                        <li><i></i>场景: {% if product.scenarios %}{% for t in product.scenarios %}{{ t.name }}, {% endfor %}{% else %}适用于所有场景{% endif %}</li>
+                        <li><i></i>容量：{{ product.capacity or '' }}</li>
+                        <li><i></i>参考价格：{{ product.price or '暂无' }}</li>
+                        {% if current_user.is_editor %}
+                        <li><a href="{{ url_for('products.edit', id=product.id) }}"><i></i>修改产品</a></li>
+                        {% endif %}
+                    </ul>
+                    
+                    <ul id="right-col-tab" class="nav nav-tabs">
+                        <li class="active"><a href="#latest-news" data-toggle="tab">立刻购买</a></li>
+                        <li><a href="#latest-products" data-toggle="tab">相关产品</a></li>
+                    </ul>
+                    <div id="right-col-widget" class="tab-content">
+                        <div class="tab-pane fade in active" id="latest-news">
+                          <a href="" class="btn large">富光天猫旗舰店</a><br/>
+                          
+                        </div>
+                        <div class="tab-pane fade" id="latest-products">
+                          <ul class="thumbnails">
+                            <li class="span3">
+                              <a href="#" rel="tooltip" data-placement="top" data-original-title="测试产品名称1">
+                                <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                              </a>
+                            </li>
+                            <li class="span3">
+                              <a href="#" rel="tooltip" data-placement="top" data-original-title="测试产品名称2">
+                                <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                              </a>
+                            </li>
+                            <li class="span3">
+                              <a href="#" rel="tooltip" data-placement="top" data-original-title="测试产品名称3">
+                                <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                              </a>
+                            </li>
+                            <li class="span3">
+                              <a href="#" rel="tooltip" data-placement="top" data-original-title="测试经销商名称4">
+                                <img src="http://placekitten.com/50/50" class="img-polaroid"/>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    {% include 'system_static.html' %}
+    
+{% endblock body %}

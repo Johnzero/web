@@ -90,7 +90,7 @@
                         </li>
                         <li {% if 'products.list' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('products.list') }}">产品中心</a> </li>
                         <li {% if 'resellers.list' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('resellers.list') }}">销售渠道</a> </li>
-                        <li {% if 'service' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('page.service') }}">客户服务</a> </li>
+                        <li {% if 'service.index' in request.endpoint %} class="active"{% endif %}><a href="{{ url_for('service.index') }}">客户服务</a> </li>
                       </ul>
                 </div>
             </div>

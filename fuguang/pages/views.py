@@ -36,7 +36,6 @@ class PageView(views.View):
 
 page.add_url_rule('/about/<string:code>.asp', view_func=PageView.as_view('about', template_name='page/about.html', type='about'))
 page.add_url_rule('/brand/<string:code>.asp', view_func=PageView.as_view('brand', template_name='page/brand.html', type='brand'))
-page.add_url_rule('/service', view_func=PageView.as_view('service', template_name='service.html', type='service'))
 
 
 @page.route("/edit/<int:id>", methods=["GET", "POST"])
