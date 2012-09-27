@@ -74,8 +74,8 @@ def save_file(file):
     crop.save(os.path.join(thumb_dir, 'small-'+filename), "JPEG")
     
     #for front page.
-    left, top = width/2-130, height/2-79
-    area = (left, top, left+260, top+158)
+    left, top = width/2-290, height/2-75
+    area = (left, top, left+580, top+150)
     crop = im.crop(area)
     crop.save(os.path.join(thumb_dir, 'midium-'+filename), "JPEG")
     

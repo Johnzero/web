@@ -10,7 +10,7 @@ from flask import Blueprint, url_for, redirect, g, flash, request, current_app, 
 from flask.ext.login import login_required, fresh_login_required, current_user
 
 from fuguang.helpers import cached, keep_login_url, jsonify
-from fuguang.news.models import Category
+from fuguang.news.models import Category, News
 from fuguang.product.models import Product
 frontend = Blueprint('frontend', __name__, url_prefix='/')
 
@@ -18,5 +18,6 @@ frontend = Blueprint('frontend', __name__, url_prefix='/')
 def index():
     dialogs = Category.query.filter_by(name=u'对话设计师').first().news_list
     products = Product.query.order_by(Product.id.desc()).limit(3)
-    
-    return render_template('index.html', dialog=(dialogs.count()>0 and dialogs[0] or None), products=products)
+    slides = News.query.join(Category).filter(Category.name=='头条').order_by(News.created.desc()).limit(3)
+    return render_template('index.html', dialog=(dialogs.count()>0 and dialogs[0] or None), products=products,
+                           slides=slides)

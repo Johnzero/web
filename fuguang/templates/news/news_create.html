@@ -48,7 +48,7 @@
                     {{ form.content|safe }}
                     {{ form.upload.label }}
                     {{ form.upload }}
-                    <span class="help-block">请使用580*150的图.</span>
+                    <span class="help-block">请使用580*150的图. 如果是首页滚动新闻，请用960*350.</span>
                     <hr/>
                     <input type="submit" class="btn btn-primary" value="保存"/>
                     <a href="{{ url_for('news.list') }}" class="btn btn-warning">取消</a>

@@ -49,4 +49,4 @@ class News(db.Model):
         if self.cover:
             l = self.cover.split('/')
             return '/static/upload/news/%s/thumb/%s' % (l[0], 'midium-'+l[1])
-        return 'http://flickholdr.com/260/158/'
+        return 'http://flickholdr.com/580/150/'

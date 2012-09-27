@@ -11,24 +11,14 @@
             <div class="row-fluid">
                 <div id="slides">
                     <div class="slides_container">
+                        {% for slide in slides %}
                         <div class="slide">
-                            <a href="#" title="测试1"><img src="{{ url_for('static', filename='images/demo/slide2.jpg') }}" title="测试图片2测试图片2" /></a>
+                            <a href="{{ url_for('news.view', id=slide.id) }}" title="{{ slide.title }}" target="_blank"><img src="{{ slide.get_cover() }}" title="{{ slide.title }}" /></a>
                             <div class="caption" style="bottom:0">
-                                <p>这是一条测试新闻</p>
+                                <p>{{ slide.title }}</p>
                             </div>
                         </div>
-                        <div class="slide">
-                            <a href="#" title="测试2"><img src="{{ url_for('static', filename='images/demo/slide3.jpg') }}" title="测试图片3测试图片2" /></a>
-                            <div class="caption" style="bottom:0">
-                                <p>Happy Thursday!</p>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <a href="#" title="测试2"><img src="{{ url_for('static', filename='images/demo/slide4.jpg') }}" title="测试图片4测试图片2" /></a>
-                            <div class="caption" style="bottom:0">
-                                <p>Happy!</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

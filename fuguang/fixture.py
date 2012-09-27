@@ -33,7 +33,8 @@ def init_products(db):
             if mt:
                 product.meterials.append( mt )
             else:
-                print p_name, 'no meterial.'
+                pass
+                #print p_name, 'no meterial.'
             
             product_list[p_name] = product
         else:
@@ -43,7 +44,8 @@ def init_products(db):
         if color:
             product.colors.append(color)
         else:
-            print p_name, 'no color'
+            pass
+            #print p_name, 'no color'
     
     for name in product_list:
         db.session.add(product_list.get(name))

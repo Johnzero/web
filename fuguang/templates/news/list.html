@@ -13,7 +13,7 @@
                     <div class="main-content">
                         {% for news in pagination %}
                         <div class="news-item">
-                            <img src="{{ news.get_cover() }}" class="img-polaroid"/>
+                            <img src="{{ news.get_midium_thumb() }}" class="img-polaroid"/>
                             <h5><i>{{ news.category }}</i> <a href="{{ url_for('news.view', id=news.id) }}">{{ news.title }}</a></h5>
                             <div class="news-content">{{ news.excerpt }}</div>
                             <hr/>
