@@ -29,9 +29,12 @@ class Reseller(db.Model):
     website = db.Column(db.Unicode(200))
     certified = db.Column(db.Boolean(), default=False)
     
+    
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship(User, primaryjoin= user_id == User.id, backref='reseller')
     
     
     def __unicode__(self):
         return self.name
+

@@ -6,7 +6,7 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 
 from fuguang.extensions import db
 from datetime import datetime
-
+from fuguang.reseller.models import Reseller
 
 product2meterial = db.Table('product_meterial',
     db.Column('id', db.Integer, primary_key=True),
@@ -55,6 +55,8 @@ class Product(db.Model):
     capacity = db.Column(db.Integer)
     price = db.Column(db.Integer)
     
+    links = db.relationship('ResellerLink', backref='product', lazy='dynamic')
+    
     cover = db.Column(db.Unicode(150))
     
     def __unicode__(self):
@@ -78,3 +80,13 @@ class Tag(db.Model):
     type = db.Column(db.Unicode(50))
     def __unicode__(self):
         return self.name
+
+
+class ResellerLink(db.Model):
+    id = db.Column(db.Integer, primary_key=True)    
+    reseller_id = db.Column(db.Integer, db.ForeignKey('reseller.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    reseller = db.relationship(Reseller, primaryjoin= reseller_id == Reseller.id, backref='ilnks')
+    price = db.Column(db.Integer)
+    
+    
