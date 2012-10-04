@@ -15,7 +15,7 @@ from logging.handlers import SMTPHandler, RotatingFileHandler
 from flask import Flask, Response, request, g, jsonify, redirect, url_for, flash, render_template
 
 
-from fuguang.extensions import db, mail, oid, cache, login
+from fuguang.extensions import db, mail, cache, login
 from fuguang.config import DefaultConfig
 from fuguang import helpers
 
@@ -86,7 +86,6 @@ def configure_template_filters(app):
 def configure_extensions(app):
     mail.init_app(app)
     db.init_app(app)
-    oid.init_app(app)
     cache.init_app(app)
     login.setup_app(app)
 

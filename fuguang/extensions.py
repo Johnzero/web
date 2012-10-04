@@ -7,7 +7,6 @@ Copyright (c) 2012 Fu Guang Industrial Co., Lmt.. All rights reserved.
 """
 
 from flask.ext.mail import Mail
-from flaskext.openid import OpenID
 from flask.ext.sqlalchemy import SQLAlchemy
 from flaskext.cache import Cache
 from flask.ext.login import LoginManager, AnonymousUser
@@ -18,7 +17,6 @@ class Anonymous(AnonymousUser):
     name = u"Anonymous"
 
 
-oid = OpenID()
 mail = Mail()
 db = SQLAlchemy()
 cache = Cache()
