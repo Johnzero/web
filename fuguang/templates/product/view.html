@@ -19,11 +19,11 @@
                         {{ product.description|safe or '没有介绍' }}
                     </div>
                     <div class="share-holder pull-right">
-                        <a href="#" title="把此线路分享到开心网" class="share share_kaixin">&nbsp;</a> 
-                        <a href="#" title="把此线路分享到新浪微博" class="share share_sina">&nbsp;</a> 
-                        <a href="#" title="把此线路分享到豆瓣网" class="share share_douban">&nbsp;</a> 
-                        <a href="#" title="把此线路分享到人人网" class="share share_renren">&nbsp;</a>
-                        <a href="#" title="把此线路分享到腾讯微博" class="share share_qq">&nbsp;</a>  
+                        <a href="#" title="分享到开心网" class="share share_kaixin">&nbsp;</a> 
+                        <a href="#" title="分享到新浪微博" class="share share_sina">&nbsp;</a> 
+                        <a href="#" title="分享到豆瓣网" class="share share_douban">&nbsp;</a> 
+                        <a href="#" title="分享到人人网" class="share share_renren">&nbsp;</a>
+                        <a href="#" title="分享到腾讯微博" class="share share_qq">&nbsp;</a>  
                     </div>
                 </div>
                 <div class="span4 right-col">
@@ -48,7 +48,9 @@
                     </ul>
                     <div id="right-col-widget" class="tab-content">
                         <div class="tab-pane fade in active" id="latest-news">
-                          <a href="" class="btn large">富光天猫旗舰店</a><br/>
+							{% for link in product.links.all() %}
+						  	<a href="http://detail.tmall.com/item.htm?id={{ link.item }}" target="_blank" class="btn large">{{ link.reseller.name }} ￥{{ link.price }}</a><br/>
+						  	{% endfor %}
                           
                         </div>
                         <div class="tab-pane fade" id="latest-products">

@@ -33,6 +33,7 @@ product2scenario = db.Table('product_product2scenario',
 )
 
 
+
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(150))
@@ -87,6 +88,7 @@ class ResellerLink(db.Model):
     reseller_id = db.Column(db.Integer, db.ForeignKey('reseller.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     reseller = db.relationship(Reseller, primaryjoin= reseller_id == Reseller.id, backref='ilnks')
-    price = db.Column(db.Integer)
+    item = db.Column(db.Unicode(50))
+    price = db.Column(db.Float)
     
     

@@ -288,10 +288,12 @@ def init_db(db):
     db.session.add(Category(name='公告'))
     db.session.add(Category(name='对话设计师'))
     rc = ResellerCategory(name='直营店')
+    irc = ResellerCategory(name='网络平台')
     db.session.add(rc)
     db.session.add(ResellerCategory(name='批发市场'))
     db.session.add(ResellerCategory(name='KA卖场'))
-    db.session.add(ResellerCategory(name='网络平台'))
+    db.session.add(irc)
+    db.session.add(Reseller(name='富光天猫旗舰店', category=irc, certified=True, excerpt='富光天猫旗舰店'))
     
     for r in resellers.split('\n'):
         if r:
