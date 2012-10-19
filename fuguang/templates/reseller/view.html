@@ -16,11 +16,12 @@
                             {{ reseller.excerpt }}
                             <hr/>
                             <address>
-                                {{ reseller.address or '未输入' }}<br/>
-                                {{ reseller.telephone or '未输入' }}
+                                {{ reseller.address or '没有地址' }}<br/>
+                                {{ reseller.telephone or '没有电话' }}
                             </address>
                         </blockquote>
                         <div class="news-content">{{ (reseller.description or '没有介绍')|safe }}</div>
+                        {% if current_user.is_authenticated() and current_user.is_editor %}
                         <hr/>
                         <div class="desc">
                             <div class="pull-right news-tool">
@@ -28,6 +29,7 @@
                                 <a href="{{ url_for('resellers.delete', id=reseller.id) }}" class="need-confirm"><i class="icon-trash"></i>删除</a> 
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="span4 right-col">
