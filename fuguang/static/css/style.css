@@ -19,6 +19,7 @@ a:hover, a:focus{
     width:960px;
 }
 
+
 blockquote{
     border-left: 5px solid #D74040;
 }
@@ -135,6 +136,8 @@ blockquote{
 
 .center{
     text-align: center;
+    margin-top: 30px;
+    margin-bottom:30px;
 }
 
 .banner{
