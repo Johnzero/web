@@ -139,9 +139,8 @@
 {% block extra_js %}
     <script type="text/javascript" src="{{ url_for('static', filename='lib/slides.min.jquery.js') }}"></script>
     <script type="text/javascript">
-        Cufon.replace('.main-menu li a,.yahei');
         $(function(){
-            $('input, textarea').placeholder();
+            
             $('#slides').slides({
                     preload: true,
                     preloadImage: "{{ url_for('static', filename='images/loading.gif') }}",

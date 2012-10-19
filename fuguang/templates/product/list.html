@@ -9,7 +9,7 @@
         </div>
         <div class="container content product-main">
             <div class="row-fluid">
-                <div class="span12" id="product-filter">
+                <div class="span8" id="product-filter">
                     <a href="#" class="btn" rel="popover" data-placement="right" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">材质</a>
                     <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">适用人群</a>
                     <a href="#" class="btn" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">场景</a>
@@ -19,6 +19,12 @@
                     {% if current_user.is_authenticated() and current_user.is_editor %}
                     <a href="{{ url_for('products.create') }}" class="btn">添加产品</a>
                     {% endif %}
+                </div>
+                <div class="span4">
+                    <form method="GET" action=".">
+                        <input type="text" class="input-medium search-query" name="keyword">
+                        <button type="submit" class="btn">搜索产品</button>
+                    </form>
                 </div>
             </div>
             
