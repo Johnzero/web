@@ -16,6 +16,7 @@
                         <blockquote>{{ news.excerpt }}</blockquote>
                         
                         <div class="news-content">{{ news.content|safe }}</div>
+                        {% if current_user.is_authenticated() and current_user.is_editor %}
                         <hr/>
                         <div class="desc">
                             <i class="icon-user"></i><a href="">{{ news.user }}</a> <i class="icon-calendar"></i> {{ news.created|timesince }}
@@ -24,6 +25,7 @@
                                 <a href="{{ url_for('news.news_delete', id=news.id) }}" class="need-confirm"><i class="icon-trash"></i>删除</a> 
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="span4 right-col">
